@@ -21,28 +21,7 @@ Implemented service areas:
 
 ## Repository Safety
 
-Private source materials are intentionally excluded from version control.
-
-The following local source folders are ignored and should not be uploaded:
-
-- `materials/01_question_guidelines/`
-- `materials/02_exam_scope/`
-- `materials/03_item_design/`
-- `materials/04_subject_references/`
-
-These folders may contain PDFs, textbooks, official reference documents, instructor-provided files, OCR inputs, or other privately owned materials used only for local extraction and indexing. Keep them outside Git, or use a private storage workflow if they need to be shared.
-
-The following local output folders are also ignored because they can contain OCR text, page render images, source chunks, embeddings, prompts, generated drafts, or evidence excerpts derived from private materials:
-
-- `data/`
-- `resources/extracted/`
-- `resources/extracted_assets/`
-- `resources/generated/`
-- `resources/interpreted/`
-- `resources/reports/`
-- `resources/vector_db/`
-
-The code and reusable rule assets are safe to publish. Private source material and source-derived local artifacts are not.
+Private study materials and generated local artifacts are excluded from version control. The repository only tracks publishable service code, scripts, documentation, and reusable rule assets.
 
 ## Architecture
 
