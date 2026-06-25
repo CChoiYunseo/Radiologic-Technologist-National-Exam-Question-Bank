@@ -237,6 +237,6 @@ The implementation follows the project plan with these practical MVP boundaries:
 
 구현된 핵심 기능은 출제범위 관리, 로컬 RAG 근거 검색, LLM 기반 문항 생성 요청, 검증 harness, 전문가 검수 후보 저장소, 관리자 검수 화면, 사용자 문제 풀이 화면입니다. 생성 문항은 바로 공개하지 않고 `pending_expert_review` 상태로 저장한 뒤 전문가가 승인해야 연습 문제로 사용되는 흐름입니다.
 
-전공자료 원본은 개인 소유물이므로 Git에 올리지 않습니다. 특히 `materials/01_question_guidelines/`, `materials/02_exam_scope/`, `materials/03_item_design/`, `materials/04_subject_references/` 폴더는 `.gitignore`로 제외했습니다. PDF, 교재, 교수 제공 자료, OCR 입력물 등 원자료는 로컬에서만 사용해야 합니다.
+자료는 개인 소유물이므로 업로드하지 않습니다. `materials/01_question_guidelines/`, `materials/02_exam_scope/`, `materials/03_item_design/`, `materials/04_subject_references/` 폴더는 `.gitignore`로 제외했으며, PDF·교재·OCR 입력물 등은 로컬에서만 사용합니다.
 
 코드는 공개 가능한 서비스 구현과 파이프라인 중심으로 구성되어 있고, 실제 자료 추출·벡터DB 구축·문항 생성은 개발자 로컬 자료와 환경 변수를 사용해 실행하는 구조입니다.
