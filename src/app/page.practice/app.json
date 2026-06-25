@@ -1,0 +1,11 @@
+{
+    "mode": "page",
+    "id": "page.practice",
+    "title": "\ubb38\uc81c \ud480\uae30",
+    "namespace": "practice",
+    "viewuri": "/practice",
+    "category": "main",
+    "controller": "base",
+    "layout": "layout.empty",
+    "template": "wiz-page-practice()"
+}

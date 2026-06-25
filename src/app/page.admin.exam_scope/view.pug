@@ -1,0 +1,257 @@
+nav(class="sticky top-0 z-20 bg-white shadow")
+    div(class="px-6 py-3")
+        div(class="flex items-center justify-between gap-4")
+            div(class="min-w-0")
+                h1(class="text-lg font-semibold text-gray-950") 출제범위 기준표 관리
+                p(class="mt-0.5 text-[12px] text-gray-500") 공식 출제범위, RAG 근거, 문항 생성 요청을 한 흐름으로 연결합니다.
+            button(
+                (click)="seed()",
+                [disabled]="seeding",
+                class="inline-flex items-center rounded-lg bg-indigo-600 px-3 py-2 text-[13px] font-semibold text-white shadow-sm hover:bg-indigo-500 disabled:opacity-50")
+                | {{seeding ? '저장 중...' : '기준표 DB 저장'}}
+
+div(class="p-6 space-y-5")
+    div(class="grid grid-cols-1 gap-4 lg:grid-cols-4")
+        div(class="rounded-lg border border-gray-200 bg-white p-4")
+            div(class="text-[12px] text-gray-500") 총 문항
+            div(class="mt-1 text-2xl font-bold text-indigo-700") {{summary.total || 0}}
+        div(class="rounded-lg border border-gray-200 bg-white p-4")
+            div(class="text-[12px] text-gray-500") 세부 출제 항목
+            div(class="mt-1 text-2xl font-bold text-gray-950") {{summary.rows || 0}}
+        div(class="rounded-lg border border-gray-200 bg-white p-4")
+            div(class="text-[12px] text-gray-500") DB 저장 항목
+            div(class="mt-1 text-2xl font-bold text-gray-950") {{dbCount}}
+        div(class="rounded-lg border border-gray-200 bg-white p-4")
+            div(class="text-[12px] text-gray-500") 생성 요청
+            div(class="mt-1 text-2xl font-bold text-gray-950") {{requestCount}}
+
+    section(class="rounded-lg border border-gray-200 bg-white")
+        div(class="border-b border-gray-200 px-5 py-4")
+            div(class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between")
+                div
+                    h2(class="text-[15px] font-semibold text-gray-950") 출제범위 선택
+                    p(class="mt-1 text-[12px] text-gray-500") 과목에서 세부영역까지 순서대로 선택하면 생성 요청 구조가 자동으로 완성됩니다.
+                div(class="rounded-lg bg-gray-50 px-3 py-2 text-[12px] text-gray-700")
+                    span(class="font-semibold text-gray-900") 현재 선택:
+                    span(class="ml-1") {{selectedScopeText()}}
+
+        div(class="grid grid-cols-1 divide-y divide-gray-200 xl:grid-cols-[360px_1fr] xl:divide-x xl:divide-y-0")
+            div(class="space-y-5 p-5")
+                div
+                    div(class="mb-2 flex items-center justify-between")
+                        h3(class="text-[13px] font-semibold text-gray-900") 1. 과목
+                        span(class="text-[11px] text-gray-400") {{subjects.length}}개
+                    div(class="space-y-2")
+                        button(
+                            *ngFor="let item of subjects",
+                            (click)="selectSubjectRow(item)",
+                            [ngClass]="isSelected('subject', item.subject) ? 'border-indigo-600 bg-indigo-50 text-indigo-900' : 'border-gray-200 bg-white text-gray-700 hover:border-indigo-300'",
+                            class="w-full rounded-lg border px-3 py-2 text-left text-[13px] transition")
+                            div(class="font-semibold") {{item.subject}}
+                            div(class="mt-0.5 text-[11px] opacity-70") {{item.period}}
+
+                div
+                    div(class="mb-2 flex items-center justify-between")
+                        h3(class="text-[13px] font-semibold text-gray-900") 2. 분야
+                        span(class="text-[11px] text-gray-400") {{fields.length}}개
+                    div(*ngIf="fields.length === 0", class="rounded-lg border border-dashed border-gray-300 px-3 py-6 text-center text-[12px] text-gray-400") 과목을 선택하세요.
+                    div(class="grid grid-cols-1 gap-2")
+                        button(
+                            *ngFor="let item of fields",
+                            (click)="selectFieldRow(item)",
+                            [ngClass]="isSelected('field', item.field) ? 'border-indigo-600 bg-indigo-50 text-indigo-900' : 'border-gray-200 bg-white text-gray-700 hover:border-indigo-300'",
+                            class="rounded-lg border px-3 py-2 text-left text-[13px] transition")
+                            | {{item.field}}
+
+                div
+                    div(class="mb-2 flex items-center justify-between")
+                        h3(class="text-[13px] font-semibold text-gray-900") 3. 영역
+                        span(class="text-[11px] text-gray-400") {{areas.length}}개
+                    div(*ngIf="areas.length === 0", class="rounded-lg border border-dashed border-gray-300 px-3 py-6 text-center text-[12px] text-gray-400") 분야를 선택하세요.
+                    div(class="grid grid-cols-1 gap-2")
+                        button(
+                            *ngFor="let item of areas",
+                            (click)="selectAreaRow(item)",
+                            [ngClass]="isSelected('area', item.area) ? 'border-indigo-600 bg-indigo-50 text-indigo-900' : 'border-gray-200 bg-white text-gray-700 hover:border-indigo-300'",
+                            class="rounded-lg border px-3 py-2 text-left text-[13px] transition")
+                            | {{item.area}}
+
+            div(class="p-5")
+                div(class="grid grid-cols-1 gap-5 2xl:grid-cols-[1fr_360px]")
+                    div
+                        div(class="mb-3 flex flex-col gap-2 md:flex-row md:items-center md:justify-between")
+                            div
+                                h3(class="text-[13px] font-semibold text-gray-900") 4. 세부영역
+                                p(class="mt-1 text-[12px] text-gray-500") 기준 문항 수를 확인하고 생성할 세부영역을 선택합니다.
+                            input(
+                                type="text",
+                                [(ngModel)]="detailKeyword",
+                                placeholder="세부영역 검색",
+                                class="w-full rounded-lg border border-gray-300 px-3 py-2 text-[13px] focus:border-indigo-500 focus:outline-none md:w-56")
+
+                        div(class="max-h-[520px] overflow-auto rounded-lg border border-gray-200")
+                            table(class="min-w-full divide-y divide-gray-200")
+                                thead(class="sticky top-0 bg-gray-50")
+                                    tr
+                                        th(class="px-3 py-2 text-left text-[12px] font-semibold text-gray-700") 세부영역
+                                        th(class="w-24 px-3 py-2 text-right text-[12px] font-semibold text-gray-700") 기준 문항
+                                        th(class="w-24 px-3 py-2")
+                                tbody(class="divide-y divide-gray-100 bg-white")
+                                    tr(*ngIf="details.length === 0")
+                                        td(class="px-3 py-10 text-center text-[13px] text-gray-400", colspan="3") 영역을 선택하면 세부영역이 표시됩니다.
+                                    tr(*ngFor="let item of filteredDetails()", [ngClass]="isSelected('detail', item.detail) ? 'bg-indigo-50' : 'hover:bg-gray-50'")
+                                        td(class="px-3 py-2 text-[13px] text-gray-800") {{item.detail}}
+                                        td(class="px-3 py-2 text-right text-[13px] text-gray-600") {{item.question_count || 0}}
+                                        td(class="px-3 py-2 text-right")
+                                            button(
+                                                (click)="applyDetail(item)",
+                                                [ngClass]="isSelected('detail', item.detail) ? 'border-indigo-600 text-indigo-700' : 'border-gray-300 text-gray-600 hover:border-indigo-500 hover:text-indigo-600'",
+                                                class="rounded-md border px-2 py-1 text-[12px]")
+                                                | {{isSelected('detail', item.detail) ? '선택됨' : '선택'}}
+
+                    aside(class="space-y-4")
+                        div(class="rounded-lg border border-gray-200 bg-gray-50 p-4")
+                            h3(class="text-[13px] font-semibold text-gray-950") 생성 조건
+                            div(class="mt-3 space-y-3")
+                                label(class="block")
+                                    span(class="mb-1 block text-[12px] font-medium text-gray-700") 요청 문항 수
+                                    input(
+                                        type="number",
+                                        min="1",
+                                        [(ngModel)]="form.question_count",
+                                        class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-[13px] focus:border-indigo-500 focus:outline-none")
+                                label(class="block")
+                                    span(class="mb-1 block text-[12px] font-medium text-gray-700") 난이도
+                                    select(
+                                        [(ngModel)]="form.difficulty",
+                                        class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-[13px] focus:border-indigo-500 focus:outline-none")
+                                        option(value="하") 하
+                                        option(value="중") 중
+                                        option(value="상") 상
+                                label(class="block")
+                                    span(class="mb-1 block text-[12px] font-medium text-gray-700") 문항 유형
+                                    select(
+                                        [(ngModel)]="form.question_type",
+                                        class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-[13px] focus:border-indigo-500 focus:outline-none")
+                                        option(value="개념형") 개념형
+                                        option(value="계산형") 계산형
+                                        option(value="비교형") 비교형
+                                        option(value="법규형") 법규형
+                                        option(value="검사절차형") 검사절차형
+                                        option(value="안전관리형") 안전관리형
+                                        option(value="영상해석형") 영상해석형
+                                label(class="block")
+                                    span(class="mb-1 block text-[12px] font-medium text-gray-700") 핵심어 또는 학습목표 메모
+                                    input(
+                                        type="text",
+                                        [(ngModel)]="form.focus",
+                                        placeholder="예: 옴의 법칙, 필라멘트",
+                                        class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-[13px] focus:border-indigo-500 focus:outline-none")
+                                label(class="block")
+                                    span(class="mb-1 block text-[12px] font-medium text-gray-700") 근거 검색 수
+                                    input(
+                                        type="number",
+                                        min="3",
+                                        max="10",
+                                        [(ngModel)]="form.top_k",
+                                        class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-[13px] focus:border-indigo-500 focus:outline-none")
+
+                        div(class="rounded-lg border border-gray-200 bg-white p-4")
+                            h3(class="text-[13px] font-semibold text-gray-950") 생성 요청 구조
+                            div(class="mt-2 text-[12px] leading-5 text-gray-600") {{selectedScopeText()}}
+                            div(class="mt-2 text-[12px] text-gray-600") {{form.question_count}}문항 · {{form.difficulty}} · {{form.question_type}}
+                            div(*ngIf="form.focus", class="mt-1 text-[12px] text-gray-600") 핵심어: {{form.focus}}
+                            div(class="mt-4 grid grid-cols-1 gap-2")
+                                button(
+                                    (click)="previewRag()",
+                                    [disabled]="previewing",
+                                    class="rounded-lg border border-gray-300 px-3 py-2 text-[13px] font-semibold text-gray-700 hover:border-indigo-500 hover:text-indigo-600 disabled:opacity-50")
+                                    | {{previewing ? '검색 중...' : 'RAG 근거 미리보기'}}
+                                button(
+                                    (click)="createRequest()",
+                                    class="rounded-lg bg-gray-950 px-3 py-2 text-[13px] font-semibold text-white hover:bg-gray-800")
+                                    | 생성 요청 저장
+
+    section(class="rounded-lg border border-gray-200 bg-white p-5")
+        div(class="mb-4 flex items-center justify-between")
+            div
+                h2(class="text-[15px] font-semibold text-gray-950") RAG 근거 연결 미리보기
+                p(class="mt-1 text-[12px] text-gray-500") 선택한 출제범위로 검색된 전공 근거 chunk입니다. 이 목록이 문제 생성 요청 입력으로 저장됩니다.
+            span(class="text-[12px] text-gray-400") {{ragEvidence.length}}개
+        div(*ngIf="!ragPreview", class="rounded-lg border border-dashed border-gray-300 px-4 py-8 text-center text-[13px] text-gray-400")
+            | 출제범위를 선택한 뒤 RAG 근거 미리보기를 실행해주세요.
+        div(*ngIf="ragPreview", class="mb-3 rounded-lg bg-indigo-50 p-3 text-[12px] text-indigo-900")
+            div(class="font-semibold") 검색어
+            div(class="mt-1 break-words") {{ragPreview.evidence_query}}
+        div(*ngIf="ragEvidence.length > 0", class="grid grid-cols-1 gap-3 xl:grid-cols-2")
+            div(*ngFor="let item of ragEvidence", class="rounded-lg border border-gray-200 p-3")
+                div(class="flex flex-wrap items-center justify-between gap-2")
+                    div(class="text-[12px] font-semibold text-gray-900") {{item.source_file}} · {{item.page_or_slide}}쪽
+                    div(class="text-[12px] text-gray-500") score {{item.score}} · {{item.match_level}}
+                div(class="mt-1 text-[12px] text-gray-600") {{item.subject}} / {{item.area}} / {{item.detail}}
+                div(class="mt-1 text-[12px] text-gray-500") {{item.learning_objective}}
+                p(class="mt-2 text-[13px] leading-5 text-gray-800") {{item.excerpt}}
+
+    section(class="rounded-lg border border-gray-200 bg-white p-5")
+        div(class="mb-4")
+            h2(class="text-[15px] font-semibold text-gray-950") 최근 생성 요청
+            p(class="mt-1 text-[12px] text-gray-500") 요청에는 출제범위, 학습목표, RAG 근거, 검증 계획이 함께 저장됩니다.
+        div(class="overflow-x-auto")
+            table(class="min-w-full divide-y divide-gray-200")
+                thead(class="bg-gray-50")
+                    tr
+                        th(class="px-3 py-2 text-left text-[12px] font-semibold text-gray-700") 범위
+                        th(class="px-3 py-2 text-left text-[12px] font-semibold text-gray-700") 유형
+                        th(class="px-3 py-2 text-right text-[12px] font-semibold text-gray-700") 문항 수
+                        th(class="px-3 py-2 text-left text-[12px] font-semibold text-gray-700") 상태
+                        th(class="px-3 py-2 text-right text-[12px] font-semibold text-gray-700") 실행
+                tbody(class="divide-y divide-gray-100 bg-white")
+                    tr(*ngIf="requests.length === 0")
+                        td(class="px-3 py-6 text-center text-[13px] text-gray-400", colspan="5") 저장된 요청이 없습니다.
+                    tr(*ngFor="let item of requests")
+                        td(class="px-3 py-2 text-[13px] text-gray-800") {{item.subject}} / {{item.area}} / {{item.detail}}
+                        td(class="px-3 py-2 text-[13px] text-gray-600") {{item.difficulty}} · {{item.question_type}}
+                        td(class="px-3 py-2 text-right text-[13px] text-gray-600") {{item.question_count}}
+                        td(class="px-3 py-2 text-[13px] text-gray-600") {{item.status}}
+                        td(class="px-3 py-2 text-right")
+                            div(class="flex justify-end gap-2")
+                                button((click)="showResult(item)", class="rounded-md border border-gray-300 px-2 py-1 text-[12px] text-gray-600 hover:border-indigo-500 hover:text-indigo-600") 보기
+                                button(
+                                    (click)="runGeneration(item)",
+                                    [disabled]="generating",
+                                    class="rounded-md bg-gray-900 px-2 py-1 text-[12px] font-semibold text-white hover:bg-gray-700 disabled:opacity-50")
+                                    | {{generating ? '실행 중' : '생성·검증'}}
+
+    section(*ngIf="selectedResult", class="rounded-lg border border-gray-200 bg-white p-5")
+        div(class="mb-4")
+            h2(class="text-[15px] font-semibold text-gray-950") 생성·검증 결과
+            p(class="mt-1 text-[12px] text-gray-500") LLM 생성 결과와 검증 에이전트/Harness 판정 요약입니다.
+        div(*ngIf="selectedResult.generation_error", class="rounded-lg bg-red-50 p-3 text-[13px] text-red-800")
+            div(class="font-semibold") 생성 실패
+            div(class="mt-1") {{selectedResult.generation_error.message}}
+        div(*ngIf="selectedResult.generation_result", class="space-y-3")
+            div(class="rounded-lg bg-gray-50 p-3 text-[12px] text-gray-700")
+                div(class="font-semibold text-gray-900") 최종 상태
+                div(class="mt-1") {{selectedResult.final_status || selectedResult.generation_result.final_status}}
+            div(*ngFor="let result of selectedResult.generation_result.validated_questions", class="rounded-lg border border-gray-200 p-3")
+                div(class="text-[13px] font-semibold text-gray-950") {{result.question.stem}}
+                div(class="mt-2 grid grid-cols-1 gap-1 text-[12px] text-gray-700 md:grid-cols-2")
+                    div(*ngFor="let opt of result.question.options | keyvalue") {{opt.key}}. {{opt.value}}
+                div(class="mt-2 text-[12px] text-gray-600") 정답: {{result.question.answer}}
+                div(class="mt-2 text-[12px] text-gray-600") 상태: {{result.question.status}}
+                div(class="mt-3 grid grid-cols-1 gap-2 md:grid-cols-5")
+                    div(class="rounded-md bg-gray-50 p-2 text-[12px]")
+                        div(class="font-semibold text-gray-800") 범위
+                        div(class="mt-1") {{result.validation_report.agents.scope.pass ? 'PASS' : 'FAIL'}}
+                    div(class="rounded-md bg-gray-50 p-2 text-[12px]")
+                        div(class="font-semibold text-gray-800") 근거
+                        div(class="mt-1") {{result.validation_report.agents.grounding.grounded ? 'PASS' : 'FAIL'}}
+                    div(class="rounded-md bg-gray-50 p-2 text-[12px]")
+                        div(class="font-semibold text-gray-800") 정답
+                        div(class="mt-1") {{result.validation_report.agents.uniqueness.pass ? 'PASS' : 'FAIL'}}
+                    div(class="rounded-md bg-gray-50 p-2 text-[12px]")
+                        div(class="font-semibold text-gray-800") 저작권
+                        div(class="mt-1") {{result.validation_report.agents.copyright.pass ? 'PASS' : 'FAIL'}}
+                    div(class="rounded-md bg-gray-50 p-2 text-[12px]")
+                        div(class="font-semibold text-gray-800") 국문법
+                        div(class="mt-1") {{result.validation_report.agents.grammar.pass ? 'PASS' : 'FAIL'}}

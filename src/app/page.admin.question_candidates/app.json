@@ -1,0 +1,11 @@
+{
+    "mode": "page",
+    "id": "page.admin.question_candidates",
+    "title": "\uc804\ubb38\uac00 \uac80\uc218 \ud6c4\ubcf4",
+    "namespace": "admin.question_candidates",
+    "viewuri": "/admin/question-candidates",
+    "category": "admin",
+    "controller": "base",
+    "layout": "layout.sidebar",
+    "template": "wiz-page-admin-question_candidates()"
+}

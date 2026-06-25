@@ -4,8 +4,8 @@ div(class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8")
             div(class="flex items-center justify-center w-12 h-12 rounded-xl bg-indigo-600 text-white")
                 svg(xmlns="http://www.w3.org/2000/svg", fill="none", viewBox="0 0 24 24", stroke-width="1.5", stroke="currentColor", class="size-7")
                     path(stroke-linecap="round", stroke-linejoin="round", d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9")
-        h2(class="mt-6 text-center text-xl font-bold text-gray-900") 서비스 로그인
-        p(class="mt-2 text-center text-[13px] text-gray-500") 계정 정보를 입력하여 로그인하세요.
+        h2(class="mt-6 text-center text-xl font-bold text-gray-900") 전문가 검수 로그인
+        p(class="mt-2 text-center text-[13px] text-gray-500") 문제은행 후보 검수 권한이 있는 계정으로 로그인하세요.
 
     div(class="mt-8 sm:mx-auto sm:w-full sm:max-w-sm")
         div(class="space-y-5")
@@ -15,7 +15,7 @@ div(class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8")
                     type="email",
                     autocomplete="email",
                     [(ngModel)]="data.email",
-                    placeholder="name@example.com",
+                    placeholder="관리자 이메일",
                     class="block w-full rounded-lg border border-gray-300 px-3 py-2 text-[13px] text-gray-900 placeholder:text-gray-400 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none")
 
             div
@@ -33,4 +33,4 @@ div(class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8")
                 class="flex w-full justify-center rounded-lg bg-indigo-600 px-3 py-2.5 text-[13px] font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-colors")
                 | 로그인
 
-        p(class="mt-8 text-center text-xs text-gray-400") &copy; 2026 Sample Service. All rights reserved.
+        p(class="mt-8 text-center text-xs text-gray-400") 방사선사 국가고시 AI 문제은행 검수 시스템

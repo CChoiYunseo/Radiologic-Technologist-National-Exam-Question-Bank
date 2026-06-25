@@ -1,0 +1,11 @@
+{
+    "mode": "page",
+    "id": "page.admin.exam_scope",
+    "title": "\ucd9c\uc81c\ubc94\uc704 \uad00\ub9ac",
+    "namespace": "admin.exam_scope",
+    "viewuri": "/admin/exam-scope",
+    "category": "admin",
+    "controller": "admin",
+    "layout": "layout.sidebar",
+    "template": "wiz-page-admin-exam_scope()"
+}

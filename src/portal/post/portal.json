@@ -1,7 +1,0 @@
-{
-    "package": "post",
-    "use_app": true,
-    "use_controller": false,
-    "use_model": true,
-    "use_route": false
-}

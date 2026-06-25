@@ -2,7 +2,7 @@ doctype html
 html(lang="en")
     head
         meta(charset="utf-8")
-        title SEASON Cloud Services
+        title 방사선사 국가고시 연습
         base(href="/")
         
         meta(name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0')
@@ -13,7 +13,7 @@ html(lang="en")
         meta(name='theme-color' content='#6C8DF6')
         meta(name='apple-mobile-web-app-status-bar-style' content='black')
         meta(name='apple-mobile-web-app-capable' content='yes')
-        meta(name='apple-mobile-web-app-title' content='SEASON Cloud Services')
+        meta(name='apple-mobile-web-app-title' content='방사선사 국가고시 연습')
         meta(name='mobile-web-app-capable' content='yes')
         meta(name='HandheldFriendly' content='True')
         meta(name='MobileOptimized' content='320')
@@ -28,11 +28,11 @@ html(lang="en")
         link(rel="icon" sizes="192x192" href="/assets/brand/icon.ico")
         link(rel="icon" sizes="57x57" href="/assets/brand/icon.ico")
 
-        link(rel="manifest" href="/manifest.json")
-
         script(type="text/javascript").
             if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('/sw.js', {scope: '/'}).then((reg) => {});
+                navigator.serviceWorker.getRegistrations().then((registrations) => {
+                    registrations.forEach((registration) => registration.unregister());
+                });
             }
 
     body

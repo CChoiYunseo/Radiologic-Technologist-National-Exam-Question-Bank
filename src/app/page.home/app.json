@@ -1,0 +1,11 @@
+{
+    "mode": "page",
+    "id": "page.home",
+    "title": "\uc5f0\uc2b5 \ud648",
+    "namespace": "home",
+    "viewuri": "/home",
+    "category": "main",
+    "controller": "base",
+    "layout": "layout.empty",
+    "template": "wiz-page-home()"
+}

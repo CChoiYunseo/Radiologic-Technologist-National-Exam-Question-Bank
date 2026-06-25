@@ -1,0 +1,256 @@
+nav(class="sticky top-0 z-20 bg-white shadow")
+    div(class="px-6 py-3")
+        div(class="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between")
+            div(class="min-w-0")
+                h1(class="text-lg font-semibold text-gray-950") 전문가 검수 후보
+                p(class="mt-0.5 text-[12px] text-gray-500") 텍스트·시각자료 기반 문제은행 후보를 승인, 수정 요청, 반려 상태로 관리합니다.
+            div(class="flex flex-wrap items-center gap-2")
+                button(
+                    (click)="load()",
+                    [disabled]="loading",
+                    class="rounded-lg border border-gray-300 px-3 py-2 text-[13px] font-semibold text-gray-700 hover:border-indigo-500 hover:text-indigo-600 disabled:opacity-50")
+                    | {{loading ? '갱신 중...' : '새로고침'}}
+
+div(class="p-6 space-y-5")
+    div(*ngIf="authRequired", class="rounded-lg border border-amber-200 bg-amber-50 p-5")
+        div(class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between")
+            div
+                h2(class="text-[15px] font-semibold text-amber-950") 관리자 로그인이 필요합니다.
+                p(class="mt-1 text-[13px] leading-5 text-amber-800") 검수 후보는 저장되어 있지만, 현재 세션에 관리자 권한이 없어 목록을 불러오지 못했습니다.
+            a([href]="loginUrl()", class="inline-flex h-10 items-center justify-center rounded-lg bg-amber-700 px-4 text-[13px] font-semibold text-white hover:bg-amber-600") 로그인하기
+    div(*ngIf="!authRequired && errorMessage", class="rounded-lg border border-red-200 bg-red-50 p-4 text-[13px] font-semibold text-red-800") {{errorMessage}}
+
+    div(class="grid grid-cols-1 gap-4 lg:grid-cols-5")
+        div(class="rounded-lg border border-gray-200 bg-white p-4")
+            div(class="text-[12px] text-gray-500") 전체 후보
+            div(class="mt-1 text-2xl font-bold text-gray-950") {{total || 0}}
+        div(class="rounded-lg border border-gray-200 bg-white p-4")
+            div(class="text-[12px] text-gray-500") 검수 대기
+            div(class="mt-1 text-2xl font-bold text-amber-700") {{statusCount('pending_expert_review')}}
+        div(class="rounded-lg border border-gray-200 bg-white p-4")
+            div(class="text-[12px] text-gray-500") 전문가 승인
+            div(class="mt-1 text-2xl font-bold text-emerald-700") {{statusCount('expert_approved') + statusCount('expert_passed')}}
+        div(class="rounded-lg border border-gray-200 bg-white p-4")
+            div(class="text-[12px] text-gray-500") 시각자료 초안
+            div(class="mt-1 text-2xl font-bold text-indigo-700") {{stageCount('visual_draft')}}
+        div(class="rounded-lg border border-gray-200 bg-white p-4")
+            div(class="text-[12px] text-gray-500") 텍스트 초안
+            div(class="mt-1 text-2xl font-bold text-slate-700") {{stageCount('initial_llm_pass') + stageCount('revised_llm_pass') + stageCount('recovered_llm_pass')}}
+
+    section(class="rounded-lg border border-gray-200 bg-white")
+        div(class="border-b border-gray-200 px-5 py-4")
+            div(class="grid grid-cols-1 gap-3 xl:grid-cols-[170px_190px_190px_170px_1fr_120px]")
+                label(class="block")
+                    span(class="mb-1 block text-[12px] font-medium text-gray-700") 상태
+                    select(
+                        [(ngModel)]="filters.status",
+                        class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-[13px] focus:border-indigo-500 focus:outline-none")
+                        option(value="") 전체
+                        option(value="pending_expert_review") 검수 대기
+                        option(value="needs_revision") 수정 필요
+                        option(value="expert_rejected") 전문가 반려
+                        option(value="expert_approved") 전문가 승인
+                label(class="block")
+                    span(class="mb-1 block text-[12px] font-medium text-gray-700") 과목
+                    select(
+                        [(ngModel)]="filters.subject",
+                        class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-[13px] focus:border-indigo-500 focus:outline-none")
+                        option(value="") 전체
+                        option(*ngFor="let item of subjects", [value]="item.subject") {{item.subject}} ({{item.count}})
+                label(class="block")
+                    span(class="mb-1 block text-[12px] font-medium text-gray-700") 생성유형
+                    select(
+                        [(ngModel)]="filters.source_stage",
+                        class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-[13px] focus:border-indigo-500 focus:outline-none")
+                        option(value="") 전체
+                        option(value="visual_draft") 시각자료 기반 ({{stageCount('visual_draft')}})
+                        option(value="initial_llm_pass") 텍스트 초안
+                        option(value="revised_llm_pass") 텍스트 수정안
+                        option(value="recovered_llm_pass") 회수 문항
+                label(class="block")
+                    span(class="mb-1 block text-[12px] font-medium text-gray-700") 문항유형
+                    select(
+                        [(ngModel)]="filters.question_type",
+                        class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-[13px] focus:border-indigo-500 focus:outline-none")
+                        option(value="") 전체
+                        option(*ngFor="let item of questionTypes", [value]="item.question_type") {{item.question_type || '-'}} ({{item.count}})
+                label(class="block")
+                    span(class="mb-1 block text-[12px] font-medium text-gray-700") 검색
+                    input(
+                        type="text",
+                        [(ngModel)]="filters.keyword",
+                        (keyup.enter)="search()",
+                        placeholder="문항, 영역, 학습목표 ID",
+                        class="w-full rounded-lg border border-gray-300 px-3 py-2 text-[13px] focus:border-indigo-500 focus:outline-none")
+                div(class="flex items-end gap-2")
+                    button(
+                        (click)="search()",
+                        class="w-full rounded-lg bg-gray-950 px-3 py-2 text-[13px] font-semibold text-white hover:bg-gray-800")
+                        | 검색
+                    button(
+                        (click)="clearFilters()",
+                        class="rounded-lg border border-gray-300 px-3 py-2 text-[13px] font-semibold text-gray-700 hover:border-indigo-500 hover:text-indigo-600")
+                        | 초기화
+
+        div(class="grid grid-cols-1 divide-y divide-gray-200 2xl:grid-cols-[minmax(0,1fr)_520px] 2xl:divide-x 2xl:divide-y-0")
+            div(class="min-w-0")
+                div(class="max-h-[720px] overflow-auto")
+                    table(class="min-w-full divide-y divide-gray-200")
+                        thead(class="sticky top-0 bg-gray-50")
+                            tr
+                                th(class="px-3 py-2 text-left text-[12px] font-semibold text-gray-700") 후보
+                                th(class="w-28 px-3 py-2 text-left text-[12px] font-semibold text-gray-700") 상태
+                                th(class="w-28 px-3 py-2 text-left text-[12px] font-semibold text-gray-700") 정답
+                                th(class="w-32 px-3 py-2 text-right text-[12px] font-semibold text-gray-700") 근거/검증
+                        tbody(class="divide-y divide-gray-100 bg-white")
+                            tr(*ngIf="rows.length === 0")
+                                td(class="px-3 py-10 text-center text-[13px] text-gray-400", colspan="4") 표시할 후보가 없습니다.
+                            tr(
+                                *ngFor="let item of rows",
+                                (click)="select(item)",
+                                [ngClass]="selected && selected.id === item.id ? 'bg-indigo-50' : 'hover:bg-gray-50'",
+                                class="cursor-pointer")
+                                td(class="px-3 py-3")
+                                    div(class="text-[13px] font-semibold leading-5 text-gray-950") {{stemText(item)}}
+                                    div(class="mt-1 text-[12px] leading-4 text-gray-500") {{scopeText(item)}}
+                                    div(class="mt-1 flex flex-wrap gap-1 text-[11px]")
+                                        span([ngClass]="isVisual(item) ? 'border-indigo-200 bg-indigo-50 text-indigo-700' : 'border-slate-200 bg-slate-50 text-slate-700'", class="rounded border px-1.5 py-0.5") {{generationTypeLabel(item)}}
+                                        span(class="rounded border border-gray-200 bg-gray-50 px-1.5 py-0.5 text-gray-600") {{stageLabel(item.source_stage)}}
+                                        span(class="rounded border border-gray-200 bg-gray-50 px-1.5 py-0.5 text-gray-600") {{item.question_type || '-'}}
+                                        span(class="rounded border border-gray-200 bg-gray-50 px-1.5 py-0.5 text-gray-600") {{item.difficulty || '-'}}
+                                td(class="px-3 py-3 align-top")
+                                    span([ngClass]="statusClass(item.status)", class="inline-flex rounded-full border px-2 py-0.5 text-[11px] font-semibold") {{statusLabel(item.status)}}
+                                td(class="px-3 py-3 align-top text-[13px] text-gray-700") {{answerText(item)}}
+                                td(class="px-3 py-3 align-top text-right text-[12px] text-gray-600")
+                                    div {{item.evidence_count || 0}}개
+                                    div(class="text-gray-400") {{item.validation_count || 0}}건
+
+            aside(class="min-w-0 bg-gray-50")
+                div(*ngIf="!selected", class="px-5 py-16 text-center text-[13px] text-gray-400")
+                    | 후보를 선택하면 상세 검수 정보가 표시됩니다.
+                div(*ngIf="selected", class="space-y-4 p-5")
+                    div(class="rounded-lg border border-gray-200 bg-white p-4")
+                        div(class="flex flex-wrap items-start justify-between gap-2")
+                            div(class="min-w-0")
+                                div(class="text-[12px] text-gray-500") {{scopeText(selected)}}
+                                h2(class="mt-1 text-[15px] font-semibold leading-6 text-gray-950") {{stemText(selected)}}
+                            span([ngClass]="statusClass(selected.status)", class="shrink-0 rounded-full border px-2 py-0.5 text-[11px] font-semibold") {{statusLabel(selected.status)}}
+
+                        div(class="mt-3 flex flex-wrap gap-1 text-[11px]")
+                            span([ngClass]="isVisual(selected) ? 'border-indigo-200 bg-indigo-50 text-indigo-700' : 'border-slate-200 bg-slate-50 text-slate-700'", class="rounded border px-2 py-0.5 font-semibold") {{generationTypeLabel(selected)}}
+                            span(class="rounded border border-gray-200 bg-gray-50 px-2 py-0.5 text-gray-600") Harness {{harnessStatus(selected)}}
+                            span(class="rounded border border-gray-200 bg-gray-50 px-2 py-0.5 text-gray-600") {{selected.question_type || '-'}}
+                            span(class="rounded border border-gray-200 bg-gray-50 px-2 py-0.5 text-gray-600") {{selected.difficulty || '-'}}
+
+                        div(class="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-3")
+                            div(class="text-[12px] font-semibold text-slate-800") 문항
+                            p(class="mt-2 whitespace-pre-wrap text-[15px] font-semibold leading-6 text-slate-950") {{stemText(selected)}}
+
+                        div(class="mt-4")
+                            div(class="flex items-center justify-between")
+                                div(class="text-[12px] font-semibold text-gray-800") 보기
+                                div(class="text-[11px] text-gray-400") {{optionsList(selected).length}}개
+                            div(*ngIf="optionsList(selected).length === 0", class="mt-2 rounded-md border border-dashed border-red-200 bg-red-50 px-3 py-4 text-[12px] font-semibold text-red-700")
+                                | 보기 데이터가 없습니다. 이 후보는 승인하지 말고 수정 필요 또는 반려로 판정하세요.
+                            div(class="mt-2 space-y-2")
+                                div(*ngFor="let option of optionsList(selected); let i = index", [ngClass]="answerValue(selected) == i + 1 ? 'border-emerald-300 bg-emerald-50 text-emerald-950' : 'border-gray-200 bg-gray-50 text-gray-800'", class="rounded-md border px-3 py-2 text-[13px] leading-5")
+                                    span(*ngIf="answerValue(selected) == i + 1", class="mr-2 rounded bg-emerald-600 px-1.5 py-0.5 text-[10px] font-semibold text-white") 정답
+                                    | {{optionText(option, i)}}
+
+                        div(class="mt-4 grid grid-cols-2 gap-2 text-[12px]")
+                            div(class="rounded-md bg-gray-50 p-2")
+                                div(class="font-semibold text-gray-800") 정답
+                                div(class="mt-1 text-gray-700") {{answerText(selected)}}
+                            div(class="rounded-md bg-gray-50 p-2")
+                                div(class="font-semibold text-gray-800") 생성 단계
+                                div(class="mt-1 text-gray-700") {{stageLabel(selected.source_stage)}}
+                            div(class="rounded-md bg-gray-50 p-2")
+                                div(class="font-semibold text-gray-800") 생성유형
+                                div(class="mt-1 text-gray-700") {{generationTypeLabel(selected)}}
+                            div(class="rounded-md bg-gray-50 p-2")
+                                div(class="font-semibold text-gray-800") 검증
+                                div(class="mt-1 text-gray-700") {{harnessStatus(selected)}}
+
+                        div(class="mt-4")
+                            div(class="text-[12px] font-semibold text-gray-800") 해설
+                            p(class="mt-1 whitespace-pre-wrap rounded-md border border-gray-200 bg-gray-50 p-3 text-[13px] leading-5 text-gray-700") {{explanationText(selected) || '해설 데이터가 없습니다. 이 후보는 승인하지 말고 수정 필요 또는 반려로 판정하세요.'}}
+                        div(*ngIf="distractorStrategyText(selected)", class="mt-4")
+                            div(class="text-[12px] font-semibold text-gray-800") 오답 구성 의도
+                            p(class="mt-1 whitespace-pre-wrap rounded-md border border-gray-200 bg-gray-50 p-3 text-[12px] leading-5 text-gray-600") {{distractorStrategyText(selected)}}
+
+                    div(*ngIf="isVisual(selected) && visualSummary()", class="rounded-lg border border-indigo-200 bg-white p-4")
+                        h3(class="text-[13px] font-semibold text-indigo-950") 시각자료 구조화 근거
+                        div(class="mt-3 grid grid-cols-1 gap-2 text-[12px]")
+                            div(class="rounded-md bg-indigo-50 p-2")
+                                div(class="font-semibold text-indigo-900") 유형
+                                div(class="mt-1 text-indigo-800") {{visualSummary().visual_kind || '-'}}
+                            div(class="rounded-md bg-indigo-50 p-2")
+                                div(class="font-semibold text-indigo-900") 원본 자료
+                                div(class="mt-1 text-indigo-800") {{visualSummary().source_file || '-'}} · {{visualSummary().page_or_slide || '-'}}쪽
+                            div(class="rounded-md bg-indigo-50 p-2")
+                                div(class="font-semibold text-indigo-900") 구조화 제목
+                                div(class="mt-1 whitespace-pre-wrap text-indigo-800") {{visualSummary().caption || '-'}}
+                            div(class="rounded-md bg-indigo-50 p-2")
+                                div(class="font-semibold text-indigo-900") 주변 본문 기반 요약
+                                div(class="mt-1 whitespace-pre-wrap text-indigo-800") {{visualSummary().nearby_text_summary || '-'}}
+                            div(*ngIf="visualSummary().structure_summary", class="rounded-md bg-indigo-50 p-2")
+                                div(class="font-semibold text-indigo-900") 구조 설명
+                                div(class="mt-1 whitespace-pre-wrap text-indigo-800") {{visualSummary().structure_summary}}
+                            div(*ngIf="visualSummary().formula_plain_text", class="rounded-md bg-indigo-50 p-2")
+                                div(class="font-semibold text-indigo-900") 수식 후보
+                                div(class="mt-1 whitespace-pre-wrap text-indigo-800") {{visualSummary().formula_plain_text}}
+                            div(class="rounded-md bg-indigo-50 p-2")
+                                div(class="font-semibold text-indigo-900") 생성 제한
+                                div(class="mt-1 text-indigo-800") 원본 이미지·표·수식 재사용 금지, 구조화 설명 기반 생성, 전문가 검수 전 미승인
+
+                    div(class="rounded-lg border border-gray-200 bg-white p-4")
+                        h3(class="text-[13px] font-semibold text-gray-950") 검수 판정
+                        textarea(
+                            [(ngModel)]="reviewNote",
+                            rows="3",
+                            placeholder="전문가 검수 메모",
+                            class="mt-3 w-full rounded-lg border border-gray-300 px-3 py-2 text-[13px] focus:border-indigo-500 focus:outline-none")
+                        div(class="mt-3 grid grid-cols-2 gap-2")
+                            button(
+                                (click)="updateStatus('expert_approved')",
+                                [disabled]="saving",
+                                class="rounded-lg bg-emerald-600 px-3 py-2 text-[13px] font-semibold text-white hover:bg-emerald-500 disabled:opacity-50")
+                                | 승인
+                            button(
+                                (click)="updateStatus('needs_revision')",
+                                [disabled]="saving",
+                                class="rounded-lg bg-sky-600 px-3 py-2 text-[13px] font-semibold text-white hover:bg-sky-500 disabled:opacity-50")
+                                | 수정 필요
+                            button(
+                                (click)="updateStatus('expert_rejected')",
+                                [disabled]="saving",
+                                class="rounded-lg bg-red-600 px-3 py-2 text-[13px] font-semibold text-white hover:bg-red-500 disabled:opacity-50")
+                                | 반려
+                            button(
+                                (click)="updateStatus('pending_expert_review')",
+                                [disabled]="saving",
+                                class="rounded-lg border border-gray-300 bg-white px-3 py-2 text-[13px] font-semibold text-gray-700 hover:border-indigo-500 hover:text-indigo-600 disabled:opacity-50")
+                                | 대기로 되돌림
+                        p(class="mt-2 text-[11px] leading-4 text-gray-500") 승인은 전문가 검수 통과 상태이며, 학생 풀이 노출은 별도 최종 배포 단계에서 결정합니다.
+
+                    div(class="rounded-lg border border-gray-200 bg-white p-4")
+                        div(class="mb-3 flex items-center justify-between")
+                            h3(class="text-[13px] font-semibold text-gray-950") 근거 참조
+                            span(class="text-[12px] text-gray-400") {{selectedEvidence.length}}개
+                        div(*ngIf="selectedEvidence.length === 0", class="rounded-lg border border-dashed border-gray-300 px-3 py-6 text-center text-[12px] text-gray-400") 근거 참조가 없습니다.
+                        div(class="space-y-2")
+                            div(*ngFor="let item of selectedEvidence", class="rounded-md border border-gray-200 bg-gray-50 p-3")
+                                div(class="text-[12px] font-semibold text-gray-900") {{item.source_file}} · {{item.page_or_slide}}쪽
+                                div(class="mt-1 break-all text-[11px] text-gray-500") {{item.source_chunk_id || item.rag_input_id}}
+                                div(class="mt-1 text-[11px] text-gray-500") {{item.evidence_role || 'evidence'}} · {{item.mapping_confidence || '-'}}
+
+                    div(class="rounded-lg border border-gray-200 bg-white p-4")
+                        div(class="mb-3 flex items-center justify-between")
+                            h3(class="text-[13px] font-semibold text-gray-950") 검증 이력
+                            span(class="text-[12px] text-gray-400") {{selectedValidations.length}}건
+                        div(class="space-y-2")
+                            div(*ngFor="let item of selectedValidations", class="rounded-md border border-gray-200 bg-gray-50 p-3")
+                                div(class="flex items-center justify-between gap-2")
+                                    div(class="text-[12px] font-semibold text-gray-900") {{item.validation_stage}} · {{item.validator_type}}
+                                    span([ngClass]="validationPassed(item) ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-gray-50 text-gray-700 border-gray-200'", class="rounded-full border px-2 py-0.5 text-[11px] font-semibold") {{item.verdict}}
+                                div(*ngIf="item.summary && item.summary.note", class="mt-2 whitespace-pre-wrap text-[12px] leading-5 text-gray-700") {{item.summary.note}}
