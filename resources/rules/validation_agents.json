@@ -1,0 +1,107 @@
+{
+  "version": 1,
+  "purpose": "문항 생성 결과를 전문 검증 에이전트 5개와 최종 Judge로 평가하는 구조",
+  "agents": [
+    {
+      "id": "agent_scope",
+      "name": "Agent 1 - 출제범위 검증",
+      "input": [
+        "문제",
+        "출제범위",
+        "학습목표"
+      ],
+      "prompt": "당신은 국가고시 출제 검수자이다. 이 문제가 주어진 출제범위와 학습목표에 포함되는지 판단하라.",
+      "output_schema": {
+        "pass": "boolean",
+        "reason": "string"
+      },
+      "fail_action": "문항 폐기 또는 출제범위 재지정"
+    },
+    {
+      "id": "agent_uniqueness",
+      "name": "Agent 2 - 정답 유일성 검증",
+      "input": [
+        "문제",
+        "보기",
+        "정답"
+      ],
+      "prompt": "정답이 하나만 존재하는가? 다른 보기가 정답으로 해석될 가능성이 있는가?",
+      "output_schema": {
+        "pass": "boolean",
+        "reason": "string"
+      },
+      "fail_action": "문제 폐기"
+    },
+    {
+      "id": "agent_grounding",
+      "name": "Agent 3 - RAG 근거 검증",
+      "input": [
+        "문제",
+        "해설",
+        "RAG 근거"
+      ],
+      "prompt": "문제와 해설이 근거 문단에서 지원되는가?",
+      "output_schema": {
+        "grounded": "boolean",
+        "confidence": "number",
+        "reason": "string"
+      },
+      "fail_action": "문항 폐기 또는 근거 재검색"
+    },
+    {
+      "id": "agent_copyright",
+      "name": "Agent 4 - 저작권 검증",
+      "input": [
+        "원문 chunk",
+        "생성 문제"
+      ],
+      "prompt": "생성 문제가 원문 문장을 복사했는가? 문제 구조를 재현했는가? 보기를 그대로 사용했는가?",
+      "output_schema": {
+        "copyright_risk": "low | medium | high",
+        "pass": "boolean",
+        "reason": "string"
+      },
+      "fail_action": "문항 폐기"
+    },
+    {
+      "id": "agent_grammar",
+      "name": "Agent 5 - 국문법·문항 표현 검증",
+      "input": [
+        "문제",
+        "보기",
+        "해설",
+        "문항작성법",
+        "문항평가법",
+        "국문법 교재"
+      ],
+      "prompt": "국문법 오류, 부정문 사용, 답가지 길이, 문항줄기 오류를 검사하라.",
+      "output_schema": {
+        "pass": "boolean",
+        "reason": "string"
+      },
+      "fail_action": "문항 수정 또는 폐기"
+    }
+  ],
+  "judge": {
+    "id": "final_judge",
+    "name": "최종 Judge",
+    "input": [
+      "scope",
+      "grounding",
+      "uniqueness",
+      "grammar",
+      "copyright"
+    ],
+    "output_schema": {
+      "scope": "boolean",
+      "grounding": "boolean",
+      "uniqueness": "boolean",
+      "grammar": "boolean",
+      "copyright": "boolean",
+      "final_pass": "boolean",
+      "discard": "boolean",
+      "reason": "string"
+    },
+    "final_pass_rule": "scope, grounding, uniqueness, grammar, copyright가 모두 true일 때만 최종 통과"
+  }
+}

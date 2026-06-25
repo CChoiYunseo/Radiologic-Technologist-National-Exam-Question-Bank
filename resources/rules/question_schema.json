@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "required_fields": [
+    "period",
+    "subject",
+    "field",
+    "area",
+    "detail",
+    "scope_id",
+    "learning_objective_id",
+    "question_type",
+    "competency_type",
+    "difficulty",
+    "stem",
+    "options",
+    "answer",
+    "explanation",
+    "evidence_refs",
+    "source_chunks",
+    "distractor_strategy",
+    "validation_status",
+    "reviewer_agent_results",
+    "final_judge",
+    "status"
+  ],
+  "status_lifecycle": {
+    "states": [
+      "generated",
+      "reviewed",
+      "approved",
+      "rejected"
+    ],
+    "db_storage_policy": "최종 문제 DB에는 reviewed 또는 approved 상태만 저장한다.",
+    "reviewed_transition": "검증 에이전트와 Harness 필수 조건을 모두 통과하면 reviewed로 전환한다."
+  },
+  "reviewer_agent_result_fields": [
+    "scope",
+    "grounding",
+    "uniqueness",
+    "grammar",
+    "copyright"
+  ],
+  "law_extra_fields": [
+    "law_name",
+    "article_ref",
+    "effective_date"
+  ],
+  "visual_extra_fields": [
+    "image_ref",
+    "image_rights_status",
+    "deidentification_status",
+    "visual_review_status"
+  ]
+}

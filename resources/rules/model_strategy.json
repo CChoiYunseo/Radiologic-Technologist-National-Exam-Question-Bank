@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "purpose": "방사선사 국가고시 AI 문제은행의 로컬 오픈소스 모델 운용 전략",
+  "default_strategy": {
+    "text_generation_and_validation": {
+      "primary_model": "Qwen/Qwen3-32B",
+      "role": [
+        "1·2교시 텍스트 기반 5지선다 문항 생성",
+        "정답 및 오답 해설 생성",
+        "출제범위·학습목표 일치성 검증",
+        "RAG 근거 일치성 검증",
+        "정답 유일성 검증",
+        "저작권 위험 1차 검증",
+        "국문법·문항 표현 검증"
+      ],
+      "serving_interface": "OpenAI-compatible local endpoint",
+      "recommended_runtime": "vLLM or equivalent local OpenAI-compatible server",
+      "notes": [
+        "프로토타입 기본 텍스트 LLM은 Qwen3-32B로 둔다.",
+        "Qwen3-32B가 자원상 부담되면 동일 인터페이스에서 Qwen3-14B로 낮춰 비교한다.",
+        "모델 출력은 자동 승인하지 않고 검증 에이전트와 Harness를 통과해야 한다."
+      ]
+    },
+    "visual_interpretation": {
+      "primary_model": "Qwen/Qwen2.5-VL-32B-Instruct",
+      "fallback_model": "Qwen/Qwen2.5-VL-7B-Instruct",
+      "role": [
+        "그림·도식·장비 구조도 설명 생성",
+        "표 crop과 표 구조 추출 결과 교차 확인",
+        "수식 crop의 변수·단위·관계 해석",
+        "이미지 기반 자료의 canonical representation 생성",
+        "원본을 복사하지 않는 새 도식·표·수식 재구성 프롬프트 생성"
+      ],
+      "serving_interface": "OpenAI-compatible vision endpoint",
+      "recommended_runtime": "vLLM or equivalent multimodal server",
+      "selection_reason": [
+        "텍스트 모델을 Qwen 계열로 두기 때문에 프롬프트와 출력 형식을 통일하기 쉽다.",
+        "표·수식·그림 crop을 이미지 입력으로 함께 보내는 구조에 적합하다.",
+        "프로토타입에서는 InternVL, LLaVA보다 Qwen2.5-VL을 기본 비전 모델로 고정한다."
+      ],
+      "notes": [
+        "Qwen3-32B는 텍스트 모델이므로 그림 자체를 직접 해석하는 역할로 쓰지 않는다.",
+        "시각 자료 해석 결과는 기본 needs_review=true이며 사람 검수 전 문제 생성 근거로 승인하지 않는다.",
+        "원본 이미지는 내부 검수와 근거 확인용으로만 보존하고, 문제에는 새로 재구성한 자료를 사용한다."
+      ]
+    }
+  },
+  "environment_variables": {
+    "LLM_PROVIDER": "qwen_compatible",
+    "LLM_MODEL": "Qwen/Qwen3-32B",
+    "LLM_API_URL": "http://localhost:8000/v1/chat/completions",
+    "LLM_API_KEY": "local server key or dummy value if the server requires none",
+    "VISION_LLM_MODEL": "Qwen/Qwen2.5-VL-32B-Instruct",
+    "VISION_LLM_API_URL": "http://localhost:8001/v1/chat/completions",
+    "VISION_LLM_API_KEY": "local vision server key or dummy value if the server requires none"
+  },
+  "pipeline_policy": [
+    "텍스트 chunk는 RAG 검색 후 Qwen3-32B로 문항 생성 및 검증한다.",
+    "표·수식·그림 chunk는 crop 이미지, 캡션, 주변 본문, 내부 RAG 검색 결과를 함께 Qwen2.5-VL에 보낸다.",
+    "Qwen2.5-VL은 semantic_description, canonical_representation, reconstruction_prompt를 생성한다.",
+    "Qwen3-32B는 Qwen2.5-VL 해석 결과를 다시 검증하고 문항 생성 입력으로 변환한다.",
+    "모든 산출물은 저작권 보호 규칙, 출제범위 규칙, 정답 유일성 검증, RAG 근거 검증을 통과해야 한다."
+  ]
+}

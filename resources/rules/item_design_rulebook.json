@@ -1,0 +1,235 @@
+{
+  "version": 1,
+  "purpose": "방사선사 국가고시 문제은행의 문항 메타데이터, 교시별 설계, 유형, 검증 원칙을 고정한다.",
+  "source": "materials/03_item_design",
+  "rules": [
+    {
+      "id": "ID-001",
+      "name": "공식 출제범위 필수 반영",
+      "requirement": "모든 문항은 국시원 출제범위와 법령상 시험과목 체계에 연결되어야 한다.",
+      "severity": "error",
+      "evidence": {
+        "source_type": "item_design",
+        "pages": [
+          1,
+          22,
+          23
+        ],
+        "note": "공식 출제범위 기반"
+      }
+    },
+    {
+      "id": "ID-002",
+      "name": "문항 메타데이터 필수",
+      "requirement": "교시, 대과목, 세부 과목, 출제범위 코드, 학습목표 등급, 역량 유형, 난이도, 문항 유형, 정답 근거, 오답 설계 원리를 저장한다.",
+      "severity": "error",
+      "evidence": {
+        "source_type": "item_design",
+        "pages": [
+          2,
+          23
+        ],
+        "note": "문항 메타데이터화"
+      }
+    },
+    {
+      "id": "ID-003",
+      "name": "1교시 구성",
+      "requirement": "1교시는 방사선이론 90문항과 의료관계법규 20문항의 성격을 분리해 설계한다.",
+      "severity": "error",
+      "evidence": {
+        "source_type": "item_design",
+        "pages": [
+          3,
+          4,
+          5,
+          6
+        ],
+        "note": "1교시 구성"
+      }
+    },
+    {
+      "id": "ID-004",
+      "name": "의료관계법규 최신성",
+      "requirement": "법규 문항은 법령명, 조문 번호, 시행령/시행규칙 구분, 조문 기준일, 개정 이력을 관리한다.",
+      "severity": "error",
+      "evidence": {
+        "source_type": "item_design",
+        "pages": [
+          6,
+          23
+        ],
+        "note": "법규 최신성 관리"
+      }
+    },
+    {
+      "id": "ID-005",
+      "name": "2교시 임상 응용 중심",
+      "requirement": "2교시는 검사 목적, 검사 방법, 영상 결과, 환자 안전을 연결하는 응용형 문항을 우선한다.",
+      "severity": "warning",
+      "evidence": {
+        "source_type": "item_design",
+        "pages": [
+          7,
+          8,
+          9,
+          22,
+          23
+        ],
+        "note": "2교시 임상응용"
+      }
+    },
+    {
+      "id": "ID-006",
+      "name": "공식 비율 오인 금지",
+      "requirement": "공식 공개 비율이 없는 문항 유형/영상 유형 비중은 권장 비중으로만 저장하고 공식 기준으로 표시하지 않는다.",
+      "severity": "error",
+      "evidence": {
+        "source_type": "item_design",
+        "pages": [
+          5,
+          10
+        ],
+        "note": "권장 비중과 공식 비율 구분"
+      }
+    },
+    {
+      "id": "ID-007",
+      "name": "3교시 MVP 제외",
+      "requirement": "현재 MVP에서는 3교시 영상 기반 문항을 생성·승인하지 않는다.",
+      "severity": "error",
+      "evidence": {
+        "source_type": "item_design",
+        "pages": [
+          10,
+          11,
+          19,
+          20,
+          21
+        ],
+        "note": "3교시 영상 문항은 이후 확장"
+      }
+    },
+    {
+      "id": "ID-008",
+      "name": "정답 명확성과 오답 타당성",
+      "requirement": "복수정답 가능성이 없어야 하며, 오답은 너무 터무니없지 않고 흔한 혼동을 반영해야 한다.",
+      "severity": "error",
+      "evidence": {
+        "source_type": "item_design",
+        "pages": [
+          22
+        ],
+        "note": "문항 검증 기준"
+      }
+    }
+  ],
+  "required_metadata": [
+    {
+      "name": "period",
+      "label": "교시",
+      "required": true
+    },
+    {
+      "name": "subject",
+      "label": "대과목",
+      "required": true
+    },
+    {
+      "name": "sub_subject",
+      "label": "세부 과목",
+      "required": true
+    },
+    {
+      "name": "scope_code",
+      "label": "출제범위 코드",
+      "required": true
+    },
+    {
+      "name": "learning_objective_level",
+      "label": "학습목표 등급",
+      "required": false
+    },
+    {
+      "name": "competency_type",
+      "label": "역량 유형",
+      "required": true
+    },
+    {
+      "name": "difficulty",
+      "label": "난이도",
+      "required": true
+    },
+    {
+      "name": "question_type",
+      "label": "문항 유형",
+      "required": true
+    },
+    {
+      "name": "evidence_refs",
+      "label": "정답 근거",
+      "required": true
+    },
+    {
+      "name": "distractor_strategy",
+      "label": "오답 설계 원리",
+      "required": true
+    }
+  ],
+  "period_templates": {
+    "1교시": {
+      "subjects": [
+        "방사선이론",
+        "의료관계법규"
+      ],
+      "allowed_question_types": [
+        "개념형",
+        "계산형",
+        "비교형",
+        "법규형"
+      ],
+      "design_focus": [
+        "기초 개념",
+        "선량/계측 계산",
+        "방사선 안전",
+        "법령 조문"
+      ],
+      "recommended_mix_note": "개념 이해형 중심, 계산 적용형과 사례 판단형 보완. 공식 비율로 취급하지 않는다."
+    },
+    "2교시": {
+      "subjects": [
+        "방사선응용"
+      ],
+      "allowed_question_types": [
+        "임상검사 절차형",
+        "검사조건 판단형",
+        "안전관리형",
+        "응용형"
+      ],
+      "design_focus": [
+        "검사 목적",
+        "검사 방법",
+        "영상 결과",
+        "환자 안전"
+      ],
+      "recommended_mix_note": "단순 암기보다 임상 응용 흐름을 우선한다."
+    },
+    "3교시": {
+      "subjects": [
+        "실기시험"
+      ],
+      "allowed_question_types": [
+        "영상판독형",
+        "장비식별형",
+        "영상품질평가형",
+        "artifact 판단형"
+      ],
+      "design_focus": [
+        "영상",
+        "장비",
+        "품질관리"
+      ],
+      "mvp_status": "excluded"
+    }
+  }
+}

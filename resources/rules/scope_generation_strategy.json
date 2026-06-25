@@ -1,0 +1,2520 @@
+{
+  "version": 2,
+  "purpose": "공식 출제범위 세부영역별 문항 유형, 난이도, 근거 요구사항을 연결한다.",
+  "counts": {
+    "rows": 125
+  },
+  "rows": [
+    {
+      "scope_id": "scope_d4a911530c",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "1. 방사선기초",
+      "area": "1. 방사선물리",
+      "detail": "1. 방사선의 기본 특성",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 1
+    },
+    {
+      "scope_id": "scope_b2cf871c9d",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "1. 방사선기초",
+      "area": "1. 방사선물리",
+      "detail": "2. 원자와 원자핵",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 1
+    },
+    {
+      "scope_id": "scope_59049eceb0",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "1. 방사선기초",
+      "area": "1. 방사선물리",
+      "detail": "3. 방사성원소",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 1
+    },
+    {
+      "scope_id": "scope_3dd2fc87ee",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "1. 방사선기초",
+      "area": "1. 방사선물리",
+      "detail": "4. 광자와 물질과의 상호작용",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 1
+    },
+    {
+      "scope_id": "scope_8270de4180",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "1. 방사선기초",
+      "area": "1. 방사선물리",
+      "detail": "5. 입자방사선과 물질과의 상호작용",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 1
+    },
+    {
+      "scope_id": "scope_1b35da8914",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "1. 방사선기초",
+      "area": "2. 전기전자개론",
+      "detail": "1. 직류회로",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 1
+    },
+    {
+      "scope_id": "scope_83723b4b89",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "1. 방사선기초",
+      "area": "2. 전기전자개론",
+      "detail": "2. 자기장",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 1
+    },
+    {
+      "scope_id": "scope_8fc68d5bdc",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "1. 방사선기초",
+      "area": "2. 전기전자개론",
+      "detail": "3. 전기장",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 1
+    },
+    {
+      "scope_id": "scope_3651597f32",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "1. 방사선기초",
+      "area": "2. 전기전자개론",
+      "detail": "4. 교류 회로",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 1
+    },
+    {
+      "scope_id": "scope_8fe426ea6f",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "1. 방사선기초",
+      "area": "2. 전기전자개론",
+      "detail": "5. 전기회로의 과도현상, 전기 계측",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 1
+    },
+    {
+      "scope_id": "scope_a8034a75a4",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "1. 방사선기초",
+      "area": "2. 전기전자개론",
+      "detail": "6. 반도체 소자",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 1
+    },
+    {
+      "scope_id": "scope_564ede269a",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "1. 방사선기초",
+      "area": "3. 의료영상정보",
+      "detail": "1. 기록계",
+      "recommended_question_types": [
+        "개념형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 1
+    },
+    {
+      "scope_id": "scope_1886d4b1ac",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "1. 방사선기초",
+      "area": "3. 의료영상정보",
+      "detail": "2. 엑스선 영상의 성립",
+      "recommended_question_types": [
+        "개념형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 1
+    },
+    {
+      "scope_id": "scope_943d780d4c",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "1. 방사선기초",
+      "area": "3. 의료영상정보",
+      "detail": "3. 디지털 엑스선 영상",
+      "recommended_question_types": [
+        "개념형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 1
+    },
+    {
+      "scope_id": "scope_4e3a84b94f",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "1. 방사선기초",
+      "area": "3. 의료영상정보",
+      "detail": "4. 의료영상의 평가",
+      "recommended_question_types": [
+        "개념형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 1
+    },
+    {
+      "scope_id": "scope_12e292126b",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "2. 방사선취급",
+      "area": "1. 방사선계측",
+      "detail": "1. 조사선량과 흡수선량 측정",
+      "recommended_question_types": [
+        "개념형",
+        "계산형"
+      ],
+      "recommended_difficulties": [
+        "중",
+        "상"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 2
+    },
+    {
+      "scope_id": "scope_68e10ce679",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "2. 방사선취급",
+      "area": "1. 방사선계측",
+      "detail": "2. 각종 방사선검출기의 원리 및 특성",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 2
+    },
+    {
+      "scope_id": "scope_e02bf0a9db",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "2. 방사선취급",
+      "area": "1. 방사선계측",
+      "detail": "3. 방사선 계측기의 교정 및 계측치의 통계",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 2
+    },
+    {
+      "scope_id": "scope_043e97b18a",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "2. 방사선취급",
+      "area": "2. 방사선장치(기기)",
+      "detail": "1. 엑스선 발생",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 2
+    },
+    {
+      "scope_id": "scope_511199341a",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "2. 방사선취급",
+      "area": "2. 방사선장치(기기)",
+      "detail": "2. 엑스선관",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 2
+    },
+    {
+      "scope_id": "scope_d223eb41eb",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "2. 방사선취급",
+      "area": "2. 방사선장치(기기)",
+      "detail": "3. 엑스선 고전압장치",
+      "recommended_question_types": [
+        "개념형",
+        "계산형"
+      ],
+      "recommended_difficulties": [
+        "중",
+        "상"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 2
+    },
+    {
+      "scope_id": "scope_7641e4be3f",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "2. 방사선취급",
+      "area": "2. 방사선장치(기기)",
+      "detail": "4. 엑스선 제어장치",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 2
+    },
+    {
+      "scope_id": "scope_cb283c38c6",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "2. 방사선취급",
+      "area": "2. 방사선장치(기기)",
+      "detail": "5. 엑스선 영상장치",
+      "recommended_question_types": [
+        "개념형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 2
+    },
+    {
+      "scope_id": "scope_180ce61f23",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "2. 방사선취급",
+      "area": "2. 방사선장치(기기)",
+      "detail": "6. 엑스선 장치 성능관리",
+      "recommended_question_types": [
+        "개념형",
+        "안전관리형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 2
+    },
+    {
+      "scope_id": "scope_b2b42c4ead",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "3. 방사선 장해 방어",
+      "area": "1. 방사선생물",
+      "detail": "1. 방사선생물학의 개념",
+      "recommended_question_types": [
+        "개념형",
+        "안전관리형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 2
+    },
+    {
+      "scope_id": "scope_0317347210",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "3. 방사선 장해 방어",
+      "area": "1. 방사선생물",
+      "detail": "2. 방사선효과의 영향인자",
+      "recommended_question_types": [
+        "개념형",
+        "안전관리형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 2
+    },
+    {
+      "scope_id": "scope_2404c3142b",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "3. 방사선 장해 방어",
+      "area": "1. 방사선생물",
+      "detail": "3. 방사선에 의한 세포 영향",
+      "recommended_question_types": [
+        "개념형",
+        "안전관리형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 2
+    },
+    {
+      "scope_id": "scope_21f63574fb",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "3. 방사선 장해 방어",
+      "area": "1. 방사선생물",
+      "detail": "4. 조직 및 장기에 대한 방사선의 영향",
+      "recommended_question_types": [
+        "개념형",
+        "안전관리형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 2
+    },
+    {
+      "scope_id": "scope_c4f08a7dda",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "3. 방사선 장해 방어",
+      "area": "1. 방사선생물",
+      "detail": "5. 전신조사의 급성효과 및 만발성장해",
+      "recommended_question_types": [
+        "개념형",
+        "안전관리형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 2
+    },
+    {
+      "scope_id": "scope_82789f5b9d",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "3. 방사선 장해 방어",
+      "area": "1. 방사선생물",
+      "detail": "6. 배아 및 태아, 유전적 영향",
+      "recommended_question_types": [
+        "개념형",
+        "안전관리형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 2
+    },
+    {
+      "scope_id": "scope_ea328426cc",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "3. 방사선 장해 방어",
+      "area": "2. 방사선관리",
+      "detail": "1. 방사선관리의 개념",
+      "recommended_question_types": [
+        "개념형",
+        "안전관리형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 2
+    },
+    {
+      "scope_id": "scope_56487e80c8",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "3. 방사선 장해 방어",
+      "area": "2. 방사선관리",
+      "detail": "2. 방사선안전관리",
+      "recommended_question_types": [
+        "개념형",
+        "안전관리형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 2
+    },
+    {
+      "scope_id": "scope_31e8650c60",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "3. 방사선 장해 방어",
+      "area": "2. 방사선관리",
+      "detail": "3. 방사선모니터링",
+      "recommended_question_types": [
+        "개념형",
+        "안전관리형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 2
+    },
+    {
+      "scope_id": "scope_2efe9804d7",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "3. 방사선 장해 방어",
+      "area": "2. 방사선관리",
+      "detail": "4. 방사선 관계법규",
+      "recommended_question_types": [
+        "개념형",
+        "법규형",
+        "안전관리형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "법령 원문"
+      ],
+      "source_page": 2
+    },
+    {
+      "scope_id": "scope_cca50e0404",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "4. 기초의학",
+      "area": "1. 인체해부",
+      "detail": "1. 뼈대계",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 2
+    },
+    {
+      "scope_id": "scope_7b167b503e",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "4. 기초의학",
+      "area": "1. 인체해부",
+      "detail": "2. 관절 및 근육계",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 2
+    },
+    {
+      "scope_id": "scope_7c73b9381a",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "4. 기초의학",
+      "area": "1. 인체해부",
+      "detail": "3. 순환계",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 2
+    },
+    {
+      "scope_id": "scope_83903bb560",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "4. 기초의학",
+      "area": "1. 인체해부",
+      "detail": "4. 신경계",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 2
+    },
+    {
+      "scope_id": "scope_9b387335c7",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "4. 기초의학",
+      "area": "1. 인체해부",
+      "detail": "5. 감각계",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 2
+    },
+    {
+      "scope_id": "scope_9cd1716738",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "4. 기초의학",
+      "area": "1. 인체해부",
+      "detail": "6. 소화계",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 3
+    },
+    {
+      "scope_id": "scope_6be3f31c9f",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "4. 기초의학",
+      "area": "1. 인체해부",
+      "detail": "7. 호흡계",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 3
+    },
+    {
+      "scope_id": "scope_991c134218",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "4. 기초의학",
+      "area": "1. 인체해부",
+      "detail": "8. 비뇨 및 생식계",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 3
+    },
+    {
+      "scope_id": "scope_a8b4b08668",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "4. 기초의학",
+      "area": "1. 인체해부",
+      "detail": "9. 내분비계",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 3
+    },
+    {
+      "scope_id": "scope_55eaffeaba",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "4. 기초의학",
+      "area": "2. 인체생리",
+      "detail": "1. 혈액 및 순환생리",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 3
+    },
+    {
+      "scope_id": "scope_9bad97c282",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "4. 기초의학",
+      "area": "2. 인체생리",
+      "detail": "2. 신경 및 감각생리",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 3
+    },
+    {
+      "scope_id": "scope_1866343fea",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "4. 기초의학",
+      "area": "2. 인체생리",
+      "detail": "3. 소화생리",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 3
+    },
+    {
+      "scope_id": "scope_23259fea72",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "4. 기초의학",
+      "area": "2. 인체생리",
+      "detail": "4. 호흡생리",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 3
+    },
+    {
+      "scope_id": "scope_f0728fd415",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "4. 기초의학",
+      "area": "2. 인체생리",
+      "detail": "5. 배설 및 생식생리",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 3
+    },
+    {
+      "scope_id": "scope_fe02af2c32",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "4. 기초의학",
+      "area": "2. 인체생리",
+      "detail": "6. 내분비생리",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 3
+    },
+    {
+      "scope_id": "scope_5d5e375058",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "4. 기초의학",
+      "area": "3. 공중보건",
+      "detail": "1. 공중보건총론",
+      "recommended_question_types": [
+        "개념형",
+        "법규형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "법령 원문"
+      ],
+      "source_page": 3
+    },
+    {
+      "scope_id": "scope_8890620239",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "4. 기초의학",
+      "area": "3. 공중보건",
+      "detail": "2. 환경보건",
+      "recommended_question_types": [
+        "개념형",
+        "법규형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "법령 원문"
+      ],
+      "source_page": 3
+    },
+    {
+      "scope_id": "scope_95c418cf57",
+      "period": "1교시",
+      "subject": "1. 방사선이론",
+      "field": "4. 기초의학",
+      "area": "3. 공중보건",
+      "detail": "3. 역학 및 질병관리",
+      "recommended_question_types": [
+        "개념형",
+        "법규형",
+        "안전관리형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "법령 원문"
+      ],
+      "source_page": 3
+    },
+    {
+      "scope_id": "scope_e1bffc2f7b",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "1. 방사선영상",
+      "detail": "1. 방사선검사 관련 용어",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 4
+    },
+    {
+      "scope_id": "scope_eb975d0800",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "1. 방사선영상",
+      "detail": "2. 상지",
+      "recommended_question_types": [
+        "개념형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 4
+    },
+    {
+      "scope_id": "scope_844a9b4815",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "1. 방사선영상",
+      "detail": "3. 하지",
+      "recommended_question_types": [
+        "개념형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 4
+    },
+    {
+      "scope_id": "scope_1450d72e02",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "1. 방사선영상",
+      "detail": "4. 골반",
+      "recommended_question_types": [
+        "개념형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 4
+    },
+    {
+      "scope_id": "scope_dd487bd06c",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "1. 방사선영상",
+      "detail": "5. 척추",
+      "recommended_question_types": [
+        "개념형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 4
+    },
+    {
+      "scope_id": "scope_eafa7bc4c8",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "1. 방사선영상",
+      "detail": "6. 두개부",
+      "recommended_question_types": [
+        "개념형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 4
+    },
+    {
+      "scope_id": "scope_9bd880d40f",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "1. 방사선영상",
+      "detail": "7. 복부",
+      "recommended_question_types": [
+        "개념형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 4
+    },
+    {
+      "scope_id": "scope_093761bef5",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "1. 방사선영상",
+      "detail": "8. 흉부",
+      "recommended_question_types": [
+        "개념형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 4
+    },
+    {
+      "scope_id": "scope_fd1a90d86a",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "1. 방사선영상",
+      "detail": "9. 유방",
+      "recommended_question_types": [
+        "개념형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 4
+    },
+    {
+      "scope_id": "scope_63e312e44f",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "1. 방사선영상",
+      "detail": "10. 영상치의학검사",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 4
+    },
+    {
+      "scope_id": "scope_34a7a69c52",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "1. 방사선영상",
+      "detail": "11. 의료윤리",
+      "recommended_question_types": [
+        "개념형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 4
+    },
+    {
+      "scope_id": "scope_d88b259906",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "1. 방사선영상",
+      "detail": "12. 방사선구역 내 환자관리",
+      "recommended_question_types": [
+        "개념형",
+        "안전관리형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 4
+    },
+    {
+      "scope_id": "scope_4e86144817",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "1. 방사선영상",
+      "detail": "13. 소아, 골밀도, 비전리방사선검사, 체온열검사",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 4
+    },
+    {
+      "scope_id": "scope_f64600d44b",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "2. 투시조영검사",
+      "detail": "1. 조영제",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 4
+    },
+    {
+      "scope_id": "scope_011b360f1c",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "2. 투시조영검사",
+      "detail": "2. 위, 장관계",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 4
+    },
+    {
+      "scope_id": "scope_af82b6e9a1",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "2. 투시조영검사",
+      "detail": "3. 간,담도계",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 4
+    },
+    {
+      "scope_id": "scope_11da2b82b1",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "2. 투시조영검사",
+      "detail": "4. 비뇨, 생식계",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 4
+    },
+    {
+      "scope_id": "scope_577160c329",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "2. 투시조영검사",
+      "detail": "5. 호흡계, 관절계, 신경계검사 및 누공, 유관검사",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 4
+    },
+    {
+      "scope_id": "scope_5afec42cae",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "3. 심혈관 및 중재술",
+      "detail": "1. 혈관조영법 및 기구",
+      "recommended_question_types": [
+        "개념형",
+        "법규형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "법령 원문"
+      ],
+      "source_page": 4
+    },
+    {
+      "scope_id": "scope_03e3ef7296",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "3. 심혈관 및 중재술",
+      "detail": "2. 심장·관상동맥혈관조영술 및 중재술",
+      "recommended_question_types": [
+        "개념형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 4
+    },
+    {
+      "scope_id": "scope_786934251b",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "3. 심혈관 및 중재술",
+      "detail": "3. 뇌혈관조영술 및 중재술",
+      "recommended_question_types": [
+        "개념형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 5
+    },
+    {
+      "scope_id": "scope_53aa8cb19b",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "3. 심혈관 및 중재술",
+      "detail": "4. 흉·복부혈관조영술 및 중재술",
+      "recommended_question_types": [
+        "개념형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 5
+    },
+    {
+      "scope_id": "scope_6487b8c90b",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "3. 심혈관 및 중재술",
+      "detail": "5. 사지혈관조영술 및 중재술",
+      "recommended_question_types": [
+        "개념형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 5
+    },
+    {
+      "scope_id": "scope_585a1152cb",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "3. 심혈관 및 중재술",
+      "detail": "6. 비혈관중재술",
+      "recommended_question_types": [
+        "개념형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 5
+    },
+    {
+      "scope_id": "scope_25a5782b84",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "4. 초음파기술",
+      "detail": "1. 초음파 물리",
+      "recommended_question_types": [
+        "개념형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 5
+    },
+    {
+      "scope_id": "scope_d4507b751a",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "4. 초음파기술",
+      "detail": "2. 초음파 발생원리",
+      "recommended_question_types": [
+        "개념형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 5
+    },
+    {
+      "scope_id": "scope_7f9a9b6ca1",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "4. 초음파기술",
+      "detail": "3. 초음파 탐촉자",
+      "recommended_question_types": [
+        "개념형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 5
+    },
+    {
+      "scope_id": "scope_dc8b6d2704",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "4. 초음파기술",
+      "detail": "4. 초음파 진단장치",
+      "recommended_question_types": [
+        "개념형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 5
+    },
+    {
+      "scope_id": "scope_86a8e1cfd9",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "4. 초음파기술",
+      "detail": "5. 초음파영상과 정도관리",
+      "recommended_question_types": [
+        "개념형",
+        "안전관리형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 5
+    },
+    {
+      "scope_id": "scope_dc9ed08c9a",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "4. 초음파기술",
+      "detail": "6. 도플러 초음파검사",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 5
+    },
+    {
+      "scope_id": "scope_bc8c672e13",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "4. 초음파기술",
+      "detail": "7. 상복부 초음파검사",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 5
+    },
+    {
+      "scope_id": "scope_511da1941c",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "4. 초음파기술",
+      "detail": "8. 비뇨·생식기 및 산부인과 초음파검사",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 5
+    },
+    {
+      "scope_id": "scope_d7821207c3",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "4. 초음파기술",
+      "detail": "9. 표재성 장기 초음파검사",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 5
+    },
+    {
+      "scope_id": "scope_cd5f217446",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "4. 초음파기술",
+      "detail": "10. 심장·혈관·근골격계 초음파검사",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 5
+    },
+    {
+      "scope_id": "scope_c3d98cf7da",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "5. 전산화단층검사",
+      "detail": "1. CT 기초 이론",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 5
+    },
+    {
+      "scope_id": "scope_a6cdbf348d",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "5. 전산화단층검사",
+      "detail": "2. CT 장치",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 5
+    },
+    {
+      "scope_id": "scope_a48cc2cf32",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "5. 전산화단층검사",
+      "detail": "3. 영상의재구성",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 5
+    },
+    {
+      "scope_id": "scope_54a6beff26",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "5. 전산화단층검사",
+      "detail": "4. 나선형CT 및 MDCT",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 5
+    },
+    {
+      "scope_id": "scope_7e5b796f59",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "5. 전산화단층검사",
+      "detail": "5. 부위별 검사법",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "법규형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "법령 원문"
+      ],
+      "source_page": 5
+    },
+    {
+      "scope_id": "scope_febb83b2c5",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "5. 전산화단층검사",
+      "detail": "6. 특수검사 및 3차원 영상기법",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "법규형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "법령 원문"
+      ],
+      "source_page": 5
+    },
+    {
+      "scope_id": "scope_163f30d19e",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "5. 전산화단층검사",
+      "detail": "7. 화질 및 선량",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "계산형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "중",
+        "상"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 5
+    },
+    {
+      "scope_id": "scope_318b905437",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "6. 자기공명영상검사",
+      "detail": "1. 기본원리",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 5
+    },
+    {
+      "scope_id": "scope_08a423891c",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "6. 자기공명영상검사",
+      "detail": "2. 강조영상",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 5
+    },
+    {
+      "scope_id": "scope_a755e0e702",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "6. 자기공명영상검사",
+      "detail": "3. 영상화",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 5
+    },
+    {
+      "scope_id": "scope_29803c6391",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "6. 자기공명영상검사",
+      "detail": "4. 펄스 시퀀스",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 5
+    },
+    {
+      "scope_id": "scope_a05c29b82b",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "6. 자기공명영상검사",
+      "detail": "5. 영상의 질",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 5
+    },
+    {
+      "scope_id": "scope_e95fde27c3",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "6. 자기공명영상검사",
+      "detail": "6. 인공물",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 5
+    },
+    {
+      "scope_id": "scope_283036ab91",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "6. 자기공명영상검사",
+      "detail": "7. 장치 및 안전",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "안전관리형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 5
+    },
+    {
+      "scope_id": "scope_96e82a51f2",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "6. 자기공명영상검사",
+      "detail": "8. 혈관검사",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 5
+    },
+    {
+      "scope_id": "scope_55d4f93535",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "1. 영상진단",
+      "area": "6. 자기공명영상검사",
+      "detail": "9. 특수검사",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 5
+    },
+    {
+      "scope_id": "scope_fc324d6eb5",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "2. 핵의학기술",
+      "area": "1. 방사성의약품",
+      "detail": "1. 방사성의약품의 특성 및 집적기전",
+      "recommended_question_types": [
+        "개념형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 6
+    },
+    {
+      "scope_id": "scope_3c396036e2",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "2. 핵의학기술",
+      "area": "1. 방사성의약품",
+      "detail": "2. 방사성의약품의 정도관리",
+      "recommended_question_types": [
+        "개념형",
+        "안전관리형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 6
+    },
+    {
+      "scope_id": "scope_55e102c426",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "2. 핵의학기술",
+      "area": "2. 핵의학 기기",
+      "detail": "1. 섬광카메라 및 핵의학검사 관련 기기",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 6
+    },
+    {
+      "scope_id": "scope_cf941ccbbd",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "2. 핵의학기술",
+      "area": "2. 핵의학 기기",
+      "detail": "2. SPECT, PET 시스템",
+      "recommended_question_types": [
+        "개념형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 6
+    },
+    {
+      "scope_id": "scope_e3f60e8281",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "2. 핵의학기술",
+      "area": "2. 핵의학 기기",
+      "detail": "3. 핵의학 기기의 성능평가",
+      "recommended_question_types": [
+        "개념형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 6
+    },
+    {
+      "scope_id": "scope_56b7936668",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "2. 핵의학기술",
+      "area": "3. 체내검사",
+      "detail": "1. 내분비계 및 비뇨·생식계",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 6
+    },
+    {
+      "scope_id": "scope_a0267af619",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "2. 핵의학기술",
+      "area": "3. 체내검사",
+      "detail": "2. 중추신경계 및 호흡계",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 6
+    },
+    {
+      "scope_id": "scope_16fb3b7178",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "2. 핵의학기술",
+      "area": "3. 체내검사",
+      "detail": "3. 순환계",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 6
+    },
+    {
+      "scope_id": "scope_1c598978b2",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "2. 핵의학기술",
+      "area": "3. 체내검사",
+      "detail": "4. 소화계",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 6
+    },
+    {
+      "scope_id": "scope_54c391fb81",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "2. 핵의학기술",
+      "area": "3. 체내검사",
+      "detail": "5. 골격계 및 조혈계",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 6
+    },
+    {
+      "scope_id": "scope_7008223563",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "2. 핵의학기술",
+      "area": "3. 체내검사",
+      "detail": "6. 종양검사",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 6
+    },
+    {
+      "scope_id": "scope_3e18bb9ac4",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "2. 핵의학기술",
+      "area": "4. 방사성동위원소치료 및 체외검사",
+      "detail": "1. 방사성동위원소치료",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 6
+    },
+    {
+      "scope_id": "scope_53de71b1a6",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "2. 핵의학기술",
+      "area": "4. 방사성동위원소치료 및 체외검사",
+      "detail": "2. 체외검사",
+      "recommended_question_types": [
+        "개념형",
+        "검사절차형",
+        "영상해석형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 6
+    },
+    {
+      "scope_id": "scope_271aed09fd",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "3. 방사선 치료",
+      "area": "1. 방사선치료 개요",
+      "detail": "1. 방사선치료 개념 및 기술",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 6
+    },
+    {
+      "scope_id": "scope_c905a1c692",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "3. 방사선 치료",
+      "area": "2. 선량분포 및 치료계획",
+      "detail": "1. 선량의 기본개념",
+      "recommended_question_types": [
+        "개념형",
+        "계산형"
+      ],
+      "recommended_difficulties": [
+        "중",
+        "상"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 6
+    },
+    {
+      "scope_id": "scope_a94bc192b4",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "3. 방사선 치료",
+      "area": "2. 선량분포 및 치료계획",
+      "detail": "2. 선량측정 및 선량분포",
+      "recommended_question_types": [
+        "개념형",
+        "계산형"
+      ],
+      "recommended_difficulties": [
+        "중",
+        "상"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 6
+    },
+    {
+      "scope_id": "scope_3e0353d092",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "3. 방사선 치료",
+      "area": "2. 선량분포 및 치료계획",
+      "detail": "3. 모의치료 및 치료계획",
+      "recommended_question_types": [
+        "개념형",
+        "계산형"
+      ],
+      "recommended_difficulties": [
+        "중",
+        "상"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 6
+    },
+    {
+      "scope_id": "scope_9ee9f1459c",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "3. 방사선 치료",
+      "area": "3. 치료 장치",
+      "detail": "1. 선형가속기",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 6
+    },
+    {
+      "scope_id": "scope_6a1c6df49e",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "3. 방사선 치료",
+      "area": "3. 치료 장치",
+      "detail": "2. 기타 장치 및 부속기구",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 6
+    },
+    {
+      "scope_id": "scope_2f44835bca",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "3. 방사선 치료",
+      "area": "4. 원격치료",
+      "detail": "1. 광자선 및 전자선 치료기술",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 6
+    },
+    {
+      "scope_id": "scope_94192c760a",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "3. 방사선 치료",
+      "area": "4. 원격치료",
+      "detail": "2. 특수치료기술",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 6
+    },
+    {
+      "scope_id": "scope_43c538ed06",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "3. 방사선 치료",
+      "area": "5. 근접치료",
+      "detail": "1. 근접치료기술",
+      "recommended_question_types": [
+        "개념형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 7
+    },
+    {
+      "scope_id": "scope_9993bf9a0a",
+      "period": "2교시",
+      "subject": "3. 방사선응용",
+      "field": "3. 방사선 치료",
+      "area": "6. 품질관리",
+      "detail": "1. 치료장치 및 모의치료장치의 정도관리",
+      "recommended_question_types": [
+        "개념형",
+        "안전관리형"
+      ],
+      "recommended_difficulties": [
+        "하",
+        "중"
+      ],
+      "required_evidence_types": [
+        "전공 근거 자료"
+      ],
+      "source_page": 7
+    }
+  ]
+}

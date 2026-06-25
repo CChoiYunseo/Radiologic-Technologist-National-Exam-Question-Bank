@@ -1,0 +1,102 @@
+{
+  "version": "2026-06-25",
+  "purpose": "manual_visual_chunk_promotion_policy_for_question_generation",
+  "approval_status": "pre_expert_visual_generation_approved",
+  "source_dataset": "/opt/app/project/main/resources/extracted/subject_references_multimodal_full_incremental/manual_review_overrides/manual_visual_chunks.jsonl",
+  "principles": [
+    "원본 표·그림·수식 이미지를 문제에 그대로 재사용하지 않는다.",
+    "문제·보기·해설은 구조화 설명을 근거로 새 문장으로 생성한다.",
+    "시각자료 안의 글자는 본문 chunk와 합치지 않는다.",
+    "법규·최신 기준·수치 기준·허용 기준은 최신성 검토 전 자동 생성 근거로 승인하지 않는다.",
+    "사진 판독, 초음파 영상, CT/MRI 영상처럼 실제 영상 해석이 필요한 항목은 비전 모델 또는 전문가 검수 전 보류한다."
+  ],
+  "approved_modalities": {
+    "formula": {
+      "required_structured_fields": [
+        "formula_plain_text",
+        "nearby_text_summary"
+      ],
+      "allowed_question_modes": [
+        "formula_meaning",
+        "variable_identification",
+        "relationship_concept"
+      ]
+    },
+    "table": {
+      "required_structured_fields": [
+        "table_json",
+        "nearby_text_summary"
+      ],
+      "allowed_question_modes": [
+        "table_interpretation",
+        "category_matching",
+        "relationship_comparison"
+      ]
+    },
+    "diagram": {
+      "required_structured_fields": [
+        "nearby_text_summary"
+      ],
+      "allowed_question_modes": [
+        "structure_sequence",
+        "component_function",
+        "process_flow"
+      ]
+    },
+    "graph": {
+      "required_structured_fields": [
+        "nearby_text_summary"
+      ],
+      "allowed_question_modes": [
+        "trend_interpretation",
+        "axis_relationship",
+        "conceptual_graph_reading"
+      ]
+    },
+    "chart": {
+      "required_structured_fields": [
+        "nearby_text_summary"
+      ],
+      "allowed_question_modes": [
+        "classification",
+        "comparison",
+        "relationship_summary"
+      ]
+    },
+    "diagram_table": {
+      "required_structured_fields": [
+        "nearby_text_summary"
+      ],
+      "allowed_question_modes": [
+        "diagram_table_interpretation",
+        "component_relationship"
+      ]
+    }
+  },
+  "default_hold_modalities": [
+    "figure",
+    "cover",
+    "figure_montage"
+  ],
+  "hold_keywords": [
+    "법",
+    "조문",
+    "시행규칙",
+    "시행령",
+    "고시",
+    "한도",
+    "허용",
+    "기준",
+    "규격",
+    "NEMA",
+    "IEC",
+    "KS",
+    "표준"
+  ],
+  "outputs": {
+    "approved_jsonl": "/opt/app/project/main/resources/generated/visual_question_generation_approvals/visual_question_generation_approved.jsonl",
+    "held_jsonl": "/opt/app/project/main/resources/generated/visual_question_generation_approvals/visual_question_generation_held.jsonl",
+    "report_json": "/opt/app/project/main/resources/generated/visual_question_generation_approvals/visual_question_generation_approval_report.json",
+    "report_md": "/opt/app/project/main/resources/generated/visual_question_generation_approvals/visual_question_generation_approval_report.md"
+  }
+}

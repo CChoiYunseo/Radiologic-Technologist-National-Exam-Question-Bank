@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "purpose": "04_subject_references 전공 근거 자료를 사용할 때 원문 복제와 유사 문항 생성을 막기 위한 저작권 보호 정책",
+  "principles": [
+    "전공서 원문을 복사하거나 재서술하지 않는다.",
+    "원문 문제, 보기, 해설을 재현하지 않는다.",
+    "학습목표와 핵심 개념만 추출한다.",
+    "생성된 문제는 새로운 문장으로 작성한다.",
+    "원문과 높은 유사도가 발견되면 생성 결과를 폐기한다.",
+    "출처는 메타데이터로만 저장한다.",
+    "RAG는 정답 근거 제공 용도로만 사용한다.",
+    "문제, 보기, 해설은 새롭게 생성한다."
+  ],
+  "rules": [
+    {
+      "id": "CP-001",
+      "name": "원문 문장 복사 금지",
+      "requirement": "원문 문장을 그대로 복사하지 말 것",
+      "severity": "error"
+    },
+    {
+      "id": "CP-002",
+      "name": "원문 문제 재서술 금지",
+      "requirement": "원문 문제를 재서술하지 말 것",
+      "severity": "error"
+    },
+    {
+      "id": "CP-003",
+      "name": "보기 구성 재현 금지",
+      "requirement": "보기 구성도 그대로 재현하지 말 것",
+      "severity": "error"
+    },
+    {
+      "id": "CP-004",
+      "name": "원문 해설 인용 금지",
+      "requirement": "원문 해설을 인용하지 말 것",
+      "severity": "error"
+    },
+    {
+      "id": "CP-005",
+      "name": "핵심 개념만 활용",
+      "requirement": "학습목표와 핵심 개념만 활용할 것",
+      "severity": "error"
+    },
+    {
+      "id": "CP-006",
+      "name": "신규 문항 생성",
+      "requirement": "새로운 문제, 보기, 해설을 생성할 것",
+      "severity": "error"
+    },
+    {
+      "id": "CP-007",
+      "name": "출처 메타데이터 제한",
+      "requirement": "출처와 페이지는 메타데이터로만 저장할 것",
+      "severity": "error"
+    },
+    {
+      "id": "CP-008",
+      "name": "고유사도 폐기",
+      "requirement": "생성 결과가 원문과 높은 유사도를 보이면 폐기할 것",
+      "severity": "error"
+    }
+  ],
+  "validation": {
+    "compare_target": "generated question vs source chunks",
+    "sentence_similarity_reject_threshold": 0.8,
+    "option_exact_match_reject_count": 3,
+    "explanation_similarity_reject_threshold": 0.8,
+    "minimum_text_length": 12,
+    "checks": [
+      "생성된 문제와 원문 chunk를 비교한다.",
+      "문장 유사도 80% 이상이면 거부한다.",
+      "보기 5개 중 3개 이상 동일하면 거부한다.",
+      "해설이 원문 표현을 그대로 사용하면 거부한다.",
+      "개념은 유지하되 표현은 새롭게 작성되었는지 확인한다."
+    ]
+  },
+  "generation_instruction": "근거 chunk는 정답 판단과 핵심 개념 확인에만 사용하고, 문항 줄기, 보기, 해설은 원문과 다른 새 문장으로 작성한다."
+}

@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "types": [
+    {
+      "id": "knowledge_understanding",
+      "name": "지식 이해"
+    },
+    {
+      "id": "calculation_application",
+      "name": "계산 적용"
+    },
+    {
+      "id": "visual_interpretation",
+      "name": "영상 판독"
+    },
+    {
+      "id": "equipment_identification",
+      "name": "장비 식별"
+    },
+    {
+      "id": "procedure_judgment",
+      "name": "검사 절차 판단"
+    },
+    {
+      "id": "safety_management",
+      "name": "안전관리 판단"
+    },
+    {
+      "id": "law_application",
+      "name": "법령 적용"
+    }
+  ]
+}

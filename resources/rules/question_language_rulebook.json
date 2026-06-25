@@ -1,0 +1,737 @@
+{
+  "version": 1,
+  "purpose": "보건의료인 국가시험 문항의 표기, 표현, 명료성, 품위 기준을 문제 생성 및 검증에 반영한다.",
+  "source": "materials/01_question_guidelines",
+  "categories": [
+    {
+      "id": "legal_notation",
+      "name": "법에 맞게",
+      "scope": "공공 언어, 한글 우선 표기, 단위 표기, 전문어 병기",
+      "source_pages": [
+        5,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ]
+    },
+    {
+      "id": "accuracy",
+      "name": "정확하게",
+      "scope": "어문 규범, 어휘 선택, 조사, 피동, 사동, 시제, 병렬, 호응, 어순",
+      "source_pages": [
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60
+      ]
+    },
+    {
+      "id": "clarity",
+      "name": "명료하게",
+      "scope": "중의적 표현, 부적절한 수식, 지시문과 답지의 조화",
+      "source_pages": [
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78
+      ]
+    },
+    {
+      "id": "sufficiency",
+      "name": "충분하게",
+      "scope": "문항 이해에 필요한 주어, 목적어, 행위자, 조건, 대상 보충",
+      "source_pages": [
+        79,
+        80,
+        81,
+        82,
+        83
+      ]
+    },
+    {
+      "id": "naturalness",
+      "name": "자연스럽게",
+      "scope": "국어 기본 문형, 외국어투, 명사문 회피",
+      "source_pages": [
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94
+      ]
+    },
+    {
+      "id": "plain_language",
+      "name": "쉽게",
+      "scope": "어려운 전문어, 일반어, 약어를 이해하기 쉽게 표현",
+      "source_pages": [
+        95,
+        96,
+        97,
+        98,
+        99
+      ]
+    },
+    {
+      "id": "conciseness",
+      "name": "간결하게",
+      "scope": "문제 해결에 불필요한 어구와 중복 표현 제거",
+      "source_pages": [
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106
+      ]
+    },
+    {
+      "id": "dignity_consistency",
+      "name": "그 밖에",
+      "scope": "고압적, 비격식, 비객관적, 외국어 남용, 비일관적 표현 방지",
+      "source_pages": [
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "id": "QL-001",
+      "category": "legal_notation",
+      "name": "한글 우선 표기와 원어 병기",
+      "requirement": "문항은 한글을 우선하고, 뜻 전달에 필요한 경우에만 괄호 안에 한자·영문·약어를 병기한다.",
+      "check": "전문 용어 또는 약어가 처음 나올 때 한글 설명 없이 외국 문자만 제시하지 않았는지 확인한다.",
+      "severity": "error",
+      "examples": [
+        "자기공명(MR, magnetic resonance)",
+        "리보핵산(RNA, ribonucleic acid)"
+      ],
+      "auto_check_hint": "영문 대문자 약어가 있고 괄호/한글 설명이 없으면 경고한다.",
+      "evidence": {
+        "source_type": "question_guideline",
+        "pages": [
+          5,
+          7,
+          8,
+          9,
+          10,
+          13
+        ],
+        "note": "한글 우선 표기와 원어 병기"
+      }
+    },
+    {
+      "id": "QL-002",
+      "category": "legal_notation",
+      "name": "단위 표기",
+      "requirement": "수치와 단위 기호 사이의 띄어쓰기 원칙을 지키되, 한글 단위 기호, ℃, % 등은 국시원 표기 관례에 맞춘다.",
+      "check": "수치+단위 표기가 일관적인지 확인한다.",
+      "severity": "warning",
+      "examples": [
+        "6 kg",
+        "37℃",
+        "10%"
+      ],
+      "auto_check_hint": "정규식으로 숫자와 단위 사이 공백 및 예외 단위를 검사한다.",
+      "evidence": {
+        "source_type": "question_guideline",
+        "pages": [
+          11,
+          12,
+          13
+        ],
+        "note": "단위 표기"
+      }
+    },
+    {
+      "id": "QL-003",
+      "category": "accuracy",
+      "name": "어문 규범 준수",
+      "requirement": "한글 맞춤법, 표준어, 외래어 표기, 로마자 표기, 문장 부호 규정을 따른다.",
+      "check": "비표준어, 틀린 두음법칙, 사이시옷, 띄어쓰기, 문장부호 오류가 없는지 확인한다.",
+      "severity": "error",
+      "examples": [
+        "한랭손상",
+        "젖양",
+        "부서 간",
+        "「혈액관리법」상"
+      ],
+      "auto_check_hint": "",
+      "evidence": {
+        "source_type": "question_guideline",
+        "pages": [
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          23,
+          24,
+          25,
+          26,
+          30
+        ],
+        "note": "어문 규범 준수"
+      }
+    },
+    {
+      "id": "QL-004",
+      "category": "accuracy",
+      "name": "정확한 어휘 선택",
+      "requirement": "출제 의도에 맞는 단어를 선택하고, 유사어를 혼동하지 않는다.",
+      "check": "완전/완료, 전부/전체, 시행/실시/실행 등 뜻이 다른 단어를 구분했는지 확인한다.",
+      "severity": "warning",
+      "examples": [
+        "작성을 완료해야 하는 때",
+        "의치상 전체"
+      ],
+      "auto_check_hint": "",
+      "evidence": {
+        "source_type": "question_guideline",
+        "pages": [
+          31,
+          32,
+          33,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128
+        ],
+        "note": "정확한 어휘 선택"
+      }
+    },
+    {
+      "id": "QL-005",
+      "category": "accuracy",
+      "name": "조사 선택",
+      "requirement": "조사는 앞말과 서술어의 관계를 정확히 드러내도록 선택한다.",
+      "check": "사람/동물 대상에는 '에게', 장소/사물에는 '에'처럼 대상과 의미에 맞는 조사를 썼는지 확인한다.",
+      "severity": "warning",
+      "examples": [
+        "환자에게",
+        "혀에서 맛을 담당하는 신경"
+      ],
+      "auto_check_hint": "",
+      "evidence": {
+        "source_type": "question_guideline",
+        "pages": [
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          128,
+          129
+        ],
+        "note": "조사 선택"
+      }
+    },
+    {
+      "id": "QL-006",
+      "category": "accuracy",
+      "name": "피동 표현 절제",
+      "requirement": "불필요한 피동, '-에 의하여', '-어지다', '-되다' 중첩을 피하고 능동문을 우선한다.",
+      "check": "행위 주체와 목적어가 분명한데 피동으로 돌려 쓴 표현이 없는지 확인한다.",
+      "severity": "warning",
+      "examples": [
+        "펩신이 분해하는 영양소"
+      ],
+      "auto_check_hint": "'에 의해', '의해서', '되어지' 패턴을 경고한다.",
+      "evidence": {
+        "source_type": "question_guideline",
+        "pages": [
+          41,
+          42,
+          43
+        ],
+        "note": "피동 표현 절제"
+      }
+    },
+    {
+      "id": "QL-007",
+      "category": "accuracy",
+      "name": "사동 표현 절제",
+      "requirement": "'-시키다'는 실제로 누군가에게 하게 만드는 경우에만 쓰고, 자체로 사동 의미가 있는 단어에는 붙이지 않는다.",
+      "check": "향상시키다, 개선시키다, 감소시키다처럼 불필요한 사동이 없는지 확인한다.",
+      "severity": "warning",
+      "examples": [
+        "향상하다",
+        "개선하다",
+        "낮추다"
+      ],
+      "auto_check_hint": "'시키' 포함 단어를 검토 대상으로 표시한다.",
+      "evidence": {
+        "source_type": "question_guideline",
+        "pages": [
+          44,
+          45
+        ],
+        "note": "사동 표현 절제"
+      }
+    },
+    {
+      "id": "QL-008",
+      "category": "accuracy",
+      "name": "시제 일관성",
+      "requirement": "사례형 문항에서 과거 병력, 현재 증상, 앞으로의 처치 판단 시제가 일관되어야 한다.",
+      "check": "문항이 현재 판단을 요구하는데 과거형만 나열해 의미가 어색하지 않은지 확인한다.",
+      "severity": "warning",
+      "examples": [],
+      "auto_check_hint": "",
+      "evidence": {
+        "source_type": "question_guideline",
+        "pages": [
+          46,
+          47
+        ],
+        "note": "시제 일관성"
+      }
+    },
+    {
+      "id": "QL-009",
+      "category": "accuracy",
+      "name": "병렬 구조 일치",
+      "requirement": "나열된 보기와 지시문의 품사, 문장 구조, 의미 층위가 서로 맞아야 한다.",
+      "check": "보기 일부는 명사구, 일부는 문장처럼 섞여 있지 않은지 확인한다.",
+      "severity": "warning",
+      "examples": [],
+      "auto_check_hint": "",
+      "evidence": {
+        "source_type": "question_guideline",
+        "pages": [
+          48,
+          49,
+          50
+        ],
+        "note": "병렬 구조 일치"
+      }
+    },
+    {
+      "id": "QL-010",
+      "category": "accuracy",
+      "name": "호응",
+      "requirement": "주어-서술어, 목적어-서술어, 부사어-서술어가 문법적으로 호응해야 한다.",
+      "check": "생략된 주어/목적어 때문에 누가 무엇을 하는지 불명확하지 않은지 확인한다.",
+      "severity": "error",
+      "examples": [],
+      "auto_check_hint": "",
+      "evidence": {
+        "source_type": "question_guideline",
+        "pages": [
+          51,
+          52,
+          53,
+          54,
+          55,
+          56
+        ],
+        "note": "호응"
+      }
+    },
+    {
+      "id": "QL-011",
+      "category": "accuracy",
+      "name": "어순",
+      "requirement": "긴 수식어나 부사구 때문에 의미가 흐려지지 않도록 가까이 있어야 할 성분은 가까이 둔다.",
+      "check": "수식어가 어떤 단어를 꾸미는지 명확한지 확인한다.",
+      "severity": "warning",
+      "examples": [],
+      "auto_check_hint": "",
+      "evidence": {
+        "source_type": "question_guideline",
+        "pages": [
+          57,
+          58,
+          59,
+          60
+        ],
+        "note": "어순"
+      }
+    },
+    {
+      "id": "QL-012",
+      "category": "clarity",
+      "name": "중의적 표현 금지",
+      "requirement": "하나의 문장이나 어구가 둘 이상으로 해석되면 안 된다.",
+      "check": "행위 주체, 대상, 수식 범위, 시간/조건이 한 가지로 해석되는지 확인한다.",
+      "severity": "error",
+      "examples": [
+        "정관절제술을 받은 남편과 그 부인"
+      ],
+      "auto_check_hint": "",
+      "evidence": {
+        "source_type": "question_guideline",
+        "pages": [
+          61,
+          62,
+          63,
+          64
+        ],
+        "note": "중의적 표현 금지"
+      }
+    },
+    {
+      "id": "QL-013",
+      "category": "clarity",
+      "name": "수식 관계 명확화",
+      "requirement": "수식어와 피수식어의 관계가 구조상 조화해야 한다.",
+      "check": "형용사나 관형어가 엉뚱한 명사나 결과를 꾸미지 않는지 확인한다.",
+      "severity": "warning",
+      "examples": [],
+      "auto_check_hint": "",
+      "evidence": {
+        "source_type": "question_guideline",
+        "pages": [
+          65,
+          66,
+          67
+        ],
+        "note": "수식 관계 명확화"
+      }
+    },
+    {
+      "id": "QL-014",
+      "category": "clarity",
+      "name": "지시문 내용과 표현 일치",
+      "requirement": "지시문은 실제로 묻는 대상과 선택 기준을 분명히 표현해야 한다.",
+      "check": "'설명으로 옳은 것은?'이 실제로 설명형 보기를 요구하는지 확인한다.",
+      "severity": "error",
+      "examples": [],
+      "auto_check_hint": "",
+      "evidence": {
+        "source_type": "question_guideline",
+        "pages": [
+          68,
+          69,
+          70,
+          71
+        ],
+        "note": "지시문 내용과 표현 일치"
+      }
+    },
+    {
+      "id": "QL-015",
+      "category": "clarity",
+      "name": "지시문과 답지 조화",
+      "requirement": "답지에 둘 이상의 항목을 묶거나 짝지어 제시하면 지시문도 그 구조를 반영해야 한다.",
+      "check": "보기 형식이 조합형/연결형이면 '옳게 짝지은 것은' 등으로 묻는지 확인한다.",
+      "severity": "error",
+      "examples": [
+        "임신 금기약으로만 묶인 것은",
+        "옳게 연결한 것은"
+      ],
+      "auto_check_hint": "",
+      "evidence": {
+        "source_type": "question_guideline",
+        "pages": [
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78
+        ],
+        "note": "지시문과 답지 조화"
+      }
+    },
+    {
+      "id": "QL-016",
+      "category": "sufficiency",
+      "name": "필수 정보 보충",
+      "requirement": "수험생이 지시문과 답지를 이해하는 데 필요한 행위자, 대상, 조건, 기준이 빠지면 안 된다.",
+      "check": "누가, 무엇을, 누구에게, 어떤 조건에서, 무엇으로 판단하는지 확인한다.",
+      "severity": "error",
+      "examples": [],
+      "auto_check_hint": "",
+      "evidence": {
+        "source_type": "question_guideline",
+        "pages": [
+          79,
+          80,
+          81,
+          82,
+          83
+        ],
+        "note": "필수 정보 보충"
+      }
+    },
+    {
+      "id": "QL-017",
+      "category": "naturalness",
+      "name": "국어 기본 문형",
+      "requirement": "주어, 목적어, 부사어, 서술어를 서술어 성질에 맞춰 배치한다.",
+      "check": "명사 나열이나 조사 생략 때문에 국어 문장성이 떨어지지 않는지 확인한다.",
+      "severity": "warning",
+      "examples": [],
+      "auto_check_hint": "",
+      "evidence": {
+        "source_type": "question_guideline",
+        "pages": [
+          84,
+          85,
+          86,
+          87,
+          88,
+          89
+        ],
+        "note": "국어 기본 문형"
+      }
+    },
+    {
+      "id": "QL-018",
+      "category": "naturalness",
+      "name": "외국어투 회피",
+      "requirement": "영어식 수동태, '가지다', 명사문식 표현을 자연스러운 국어 표현으로 바꾼다.",
+      "check": "가지다, -에 의해, -에 대한, 명사+목적 등 외국어투가 불필요하게 쓰이지 않았는지 확인한다.",
+      "severity": "warning",
+      "examples": [],
+      "auto_check_hint": "",
+      "evidence": {
+        "source_type": "question_guideline",
+        "pages": [
+          90,
+          91,
+          92,
+          93,
+          94
+        ],
+        "note": "외국어투 회피"
+      }
+    },
+    {
+      "id": "QL-019",
+      "category": "plain_language",
+      "name": "쉬운 말 우선",
+      "requirement": "일반화되지 않은 약어와 어려운 전문어는 가능한 쉬운 말 또는 한글 설명으로 바꾼다.",
+      "check": "전문어를 써야 하면 한글 설명, 원어, 약어를 일관되게 제시한다.",
+      "severity": "warning",
+      "examples": [],
+      "auto_check_hint": "",
+      "evidence": {
+        "source_type": "question_guideline",
+        "pages": [
+          95,
+          96,
+          97,
+          98,
+          99,
+          118,
+          119,
+          120,
+          121,
+          122
+        ],
+        "note": "쉬운 말 우선"
+      }
+    },
+    {
+      "id": "QL-020",
+      "category": "conciseness",
+      "name": "불필요한 정보 제거",
+      "requirement": "문제 해결에 필요하지 않은 배경, 중복 수식, 장황한 표현은 제거한다.",
+      "check": "삭제해도 정답 판단에 영향이 없는 문구가 없는지 확인한다.",
+      "severity": "warning",
+      "examples": [],
+      "auto_check_hint": "",
+      "evidence": {
+        "source_type": "question_guideline",
+        "pages": [
+          100,
+          101,
+          102,
+          103,
+          104,
+          105,
+          106,
+          110
+        ],
+        "note": "불필요한 정보 제거"
+      }
+    },
+    {
+      "id": "QL-021",
+      "category": "dignity_consistency",
+      "name": "고압적 표현 금지",
+      "requirement": "수험자나 환자에게 감정적, 위압적, 명령조로 읽히는 표현을 피한다.",
+      "check": "지시하였다, 명령하였다 등 고압적 표현이 필요한 맥락인지 확인한다.",
+      "severity": "warning",
+      "examples": [],
+      "auto_check_hint": "",
+      "evidence": {
+        "source_type": "question_guideline",
+        "pages": [
+          107,
+          111,
+          117
+        ],
+        "note": "고압적 표현 금지"
+      }
+    },
+    {
+      "id": "QL-022",
+      "category": "dignity_consistency",
+      "name": "비격식 표현 금지",
+      "requirement": "공식 시험 문항에서는 일상어보다 공식 명칭을 우선한다.",
+      "check": "해썹 등 비격식 명칭이 공식 명칭과 병기되거나 대체되었는지 확인한다.",
+      "severity": "warning",
+      "examples": [],
+      "auto_check_hint": "",
+      "evidence": {
+        "source_type": "question_guideline",
+        "pages": [
+          108,
+          112,
+          117
+        ],
+        "note": "비격식 표현 금지"
+      }
+    },
+    {
+      "id": "QL-023",
+      "category": "dignity_consistency",
+      "name": "비객관적 표현 금지",
+      "requirement": "부정적 사건이나 지역·집단을 불필요하게 특정해 편견을 만들지 않는다.",
+      "check": "특정 지역, 집단, 개인을 근거 없이 부정적으로 드러내지 않았는지 확인한다.",
+      "severity": "error",
+      "examples": [],
+      "auto_check_hint": "",
+      "evidence": {
+        "source_type": "question_guideline",
+        "pages": [
+          109,
+          113,
+          117
+        ],
+        "note": "비객관적 표현 금지"
+      }
+    },
+    {
+      "id": "QL-024",
+      "category": "dignity_consistency",
+      "name": "외국어 남용 금지",
+      "requirement": "대체 가능한 우리말이 있으면 외국어만 단독으로 쓰지 않는다.",
+      "check": "외국어/외래어가 일반 전문어인지, 대체어가 있는지 확인한다.",
+      "severity": "warning",
+      "examples": [],
+      "auto_check_hint": "",
+      "evidence": {
+        "source_type": "question_guideline",
+        "pages": [
+          109,
+          110,
+          113,
+          114,
+          115,
+          117
+        ],
+        "note": "외국어 남용 금지"
+      }
+    },
+    {
+      "id": "QL-025",
+      "category": "dignity_consistency",
+      "name": "보기 표현 일관성",
+      "requirement": "한 문항 안에서 보기의 용어, 문체, 문장 형식, 표기 방식이 일관되어야 한다.",
+      "check": "정답 보기만 표현 형식이 다르거나 더 구체적이지 않은지 확인한다.",
+      "severity": "warning",
+      "examples": [],
+      "auto_check_hint": "",
+      "evidence": {
+        "source_type": "question_guideline",
+        "pages": [
+          116,
+          117
+        ],
+        "note": "보기 표현 일관성"
+      }
+    }
+  ]
+}

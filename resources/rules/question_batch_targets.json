@@ -1,0 +1,53 @@
+{
+  "version": "2026-06-25",
+  "purpose": "subject_quota_question_generation_targets",
+  "targets": [
+    {
+      "subject": "방사선이론",
+      "target_count": 50
+    },
+    {
+      "subject": "방사선응용",
+      "target_count": 50
+    }
+  ],
+  "count_existing_statuses": [
+    "pending_expert_review",
+    "expert_passed"
+  ],
+  "default_generation": {
+    "question_types": [
+      "개념형",
+      "비교형",
+      "검사절차형",
+      "안전관리형"
+    ],
+    "difficulties": [
+      "중",
+      "하",
+      "상"
+    ],
+    "focus_angles": [
+      "핵심 개념 확인",
+      "유사 개념 구분",
+      "검사 또는 안전관리 상황 판단",
+      "흔한 오개념 변별",
+      "실무 맥락 적용"
+    ]
+  },
+  "policy": {
+    "student_start_behavior": "select_random_from_stored_candidates",
+    "do_not_generate_on_student_request": true,
+    "final_question_bank_approved": false,
+    "rag_use": "answer_evidence_only",
+    "exclude_by_default": [
+      "legal_currentness_required",
+      "numeric_unit_or_threshold",
+      "formula_or_equation",
+      "table",
+      "figure",
+      "diagram",
+      "visual_interpretation"
+    ]
+  }
+}

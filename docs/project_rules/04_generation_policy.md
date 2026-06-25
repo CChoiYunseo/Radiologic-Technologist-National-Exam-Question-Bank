@@ -1,0 +1,30 @@
+# Generation Policy
+
+- 방사선사 국가시험 1·2교시 텍스트 기반 5지선다형 문제를 근거 중심으로 생성한다.
+- Source priority: 국시원 공식 출제범위
+- Source priority: 업로드된 문항 설계 자료
+- Source priority: 업로드된 문항 국문법/표현 기준
+- Source priority: 저작권과 사용 권한이 확인된 전공 자료
+- Source priority: 기준일이 확인된 법령 원문
+- Step: 출제범위 선택
+- Step: 학습목표 또는 세부영역 선택
+- Step: 근거 chunk 검색
+- Step: 문항 유형과 난이도 지정
+- Step: 문항/보기/정답/해설 생성
+- Step: 형식/범위/근거/정답/언어/저작권 검증
+- Step: 검증 에이전트와 Harness 통과 시 reviewed 상태로 전환
+- Step: reviewed 또는 approved 상태만 최종 문제 DB에 저장
+- Hallucination prevention: 문제는 반드시 RAG 검색 결과를 근거로 생성한다.
+- Hallucination prevention: RAG 근거에 없는 내용을 추가 생성하지 않는다.
+- Hallucination prevention: 해설은 근거 문서에 포함된 내용만 사용한다.
+- Hallucination prevention: 법규 문제는 반드시 법령명, 조문번호, 기준일을 저장한다.
+- Hallucination prevention: 수치, 단위, 공식은 원문과 비교 검증한다.
+- Hallucination prevention: 학습목표와 출제범위를 벗어난 문제는 생성하지 않는다.
+- Never: 기출문제나 시중 모의고사 원문을 생성 근거로 복제하지 않는다.
+- Never: 모델의 사전지식만으로 문제를 생성하지 않는다.
+- Never: 근거 chunk에 없는 지식을 정답 근거로 사용하지 않는다.
+- Never: 근거 없는 해설을 생성하지 않는다.
+- Never: 존재하지 않는 법령 조문, 수치, 단위, 공식을 생성하지 않는다.
+- Never: 3교시 영상 판독 문항을 MVP에 포함하지 않는다.
+- Never: 법규 기준일이 없는 법규 문제를 승인하지 않는다.
+- Never: 원문을 대체하는 2차 PDF를 생성하지 않는다.

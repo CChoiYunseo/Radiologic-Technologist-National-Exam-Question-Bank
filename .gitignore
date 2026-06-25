@@ -6,6 +6,28 @@ node_modules/
 /build/
 /test/
 package-lock.json
+.DS_Store
+
+# Private source materials used for extraction. Do not commit PDFs or local
+# reference files from these folders.
+materials/**
+materials/01_question_guidelines/**
+materials/02_exam_scope/**
+materials/03_item_design/**
+materials/04_subject_references/**
+
+# Source-derived local artifacts. These may contain OCR text, page renders,
+# evidence chunks, embeddings, prompts, or generated drafts derived from private
+# study materials. Rebuild them locally instead of committing them.
+data/**
+resources/extracted/**
+resources/extracted_assets/**
+resources/generated/**
+resources/interpreted/**
+resources/reports/**
+resources/vector_db/**
+!resources/rules/
+!resources/rules/**
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -1,0 +1,93 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "checks": {
+      "additionalProperties": false,
+      "properties": {
+        "answer_uniqueness": {
+          "$ref": "#/$defs/check_result"
+        },
+        "copyright_risk": {
+          "$ref": "#/$defs/check_result"
+        },
+        "distractor_quality": {
+          "$ref": "#/$defs/check_result"
+        },
+        "evidence_grounding": {
+          "$ref": "#/$defs/check_result"
+        },
+        "explanation_quality": {
+          "$ref": "#/$defs/check_result"
+        },
+        "hold_material_contamination": {
+          "$ref": "#/$defs/check_result"
+        },
+        "korean_item_style": {
+          "$ref": "#/$defs/check_result"
+        },
+        "learning_objective_alignment": {
+          "$ref": "#/$defs/check_result"
+        },
+        "scope_alignment": {
+          "$ref": "#/$defs/check_result"
+        }
+      },
+      "required": [
+        "scope_alignment",
+        "learning_objective_alignment",
+        "evidence_grounding",
+        "answer_uniqueness",
+        "distractor_quality",
+        "explanation_quality",
+        "copyright_risk",
+        "korean_item_style",
+        "hold_material_contamination"
+      ],
+      "type": "object"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "overall_verdict": {
+      "enum": [
+        "pass",
+        "revise",
+        "reject"
+      ],
+      "type": "string"
+    },
+    "revision_required": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "overall_verdict",
+    "revision_required",
+    "checks",
+    "notes"
+  ],
+  "type": "object",
+  "$defs": {
+    "check_result": {
+      "additionalProperties": false,
+      "properties": {
+        "reason": {
+          "type": "string"
+        },
+        "verdict": {
+          "enum": [
+            "pass",
+            "revise",
+            "reject"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "verdict",
+        "reason"
+      ],
+      "type": "object"
+    }
+  }
+}

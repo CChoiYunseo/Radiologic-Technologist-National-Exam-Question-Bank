@@ -1,0 +1,80 @@
+{
+  "version": 2,
+  "purpose": "생성 전 예상 난이도와 생성 후 문항 분석 난이도를 분리해 관리한다.",
+  "expected_difficulty": {
+    "하": {
+      "definition": "단일 개념, 정의, 명칭, 기본 특징을 직접 확인한다.",
+      "cognitive_levels": [
+        "암기형"
+      ],
+      "avoid": [
+        "복합 계산",
+        "다중 조건",
+        "영상 판독 중심"
+      ]
+    },
+    "중": {
+      "definition": "개념 간 관계, 비교, 절차 순서, 기본 계산 적용이 필요하다.",
+      "cognitive_levels": [
+        "해석형",
+        "문제해결형"
+      ],
+      "avoid": [
+        "근거 자료 밖의 예외 상황"
+      ]
+    },
+    "상": {
+      "definition": "복합 조건, 계산 적용, 상황 판단, 안전관리 판단이 필요하다.",
+      "cognitive_levels": [
+        "문제해결형"
+      ],
+      "avoid": [
+        "전문의 수준 판독",
+        "국가고시 범위를 넘는 임상 추론"
+      ]
+    }
+  },
+  "post_exam_item_analysis": {
+    "difficulty_index": {
+      "formula": "정답자수 / 응시자총수 * 100",
+      "ranges": [
+        {
+          "range": "<25",
+          "label": "어려운 문항"
+        },
+        {
+          "range": "25 이상~75 미만",
+          "label": "적절한 문항"
+        },
+        {
+          "range": "75 이상",
+          "label": "쉬운 문항"
+        }
+      ]
+    },
+    "discrimination_index": {
+      "ranges": [
+        {
+          "range": "0.35 이상",
+          "label": "우수한 문항"
+        },
+        {
+          "range": "0.25 이상~0.35 미만",
+          "label": "양호한 문항"
+        },
+        {
+          "range": "0.15 이상~0.25 미만",
+          "label": "경계 문항"
+        },
+        {
+          "range": "0.15 미만",
+          "label": "불량"
+        }
+      ]
+    },
+    "distractor_analysis": {
+      "principle": "오답은 너무 명백하지 않고 매력적이어야 하며, 함정형 오답은 피한다.",
+      "expected_distribution": "각 오답 선택 빈도가 지나치게 낮으면 오답 매력도가 낮은 후보로 본다."
+    }
+  }
+}

@@ -1,0 +1,174 @@
+{
+  "version": 1,
+  "purpose": "생성 문항을 저장/검수 전에 자동 평가하는 Harness 명세",
+  "checks": [
+    {
+      "id": "VH-001",
+      "group": "format",
+      "name": "5지선다 보기 수",
+      "severity": "error",
+      "logic": "options length must equal 5",
+      "message": "보기는 정확히 5개여야 한다."
+    },
+    {
+      "id": "VH-002",
+      "group": "format",
+      "name": "정답 단일성",
+      "severity": "error",
+      "logic": "answer must identify exactly one option",
+      "message": "정답은 정확히 하나여야 한다."
+    },
+    {
+      "id": "VH-003",
+      "group": "scope",
+      "name": "출제범위 존재",
+      "severity": "error",
+      "logic": "subject/field/area/detail must exist in exam_scope.json",
+      "message": "문항 출제범위가 기준 DB에 존재해야 한다."
+    },
+    {
+      "id": "VH-004",
+      "group": "scope",
+      "name": "MVP 범위",
+      "severity": "error",
+      "logic": "subject must not be 실기시험 during MVP",
+      "message": "현재 MVP에서는 3교시 실기시험 문항을 생성하지 않는다."
+    },
+    {
+      "id": "VH-005",
+      "group": "metadata",
+      "name": "필수 메타데이터",
+      "severity": "error",
+      "logic": "required metadata fields must be present",
+      "message": "교시, 과목, 출제범위, 난이도, 문항 유형, 근거가 필요하다."
+    },
+    {
+      "id": "VH-006",
+      "group": "metadata",
+      "name": "난이도 유효성",
+      "severity": "error",
+      "logic": "difficulty in ['하','중','상']",
+      "message": "난이도는 하/중/상 중 하나여야 한다."
+    },
+    {
+      "id": "VH-007",
+      "group": "metadata",
+      "name": "문항 유형 유효성",
+      "severity": "error",
+      "logic": "question_type must exist in rulebook",
+      "message": "문항 유형은 등록된 유형이어야 한다."
+    },
+    {
+      "id": "VH-008",
+      "group": "evidence",
+      "name": "근거 출처",
+      "severity": "error",
+      "logic": "evidence_refs must include source file/page or law/version",
+      "message": "출처 파일/페이지 또는 법령 기준 정보가 필요하다."
+    },
+    {
+      "id": "VH-009",
+      "group": "law",
+      "name": "법규 최신성 메타",
+      "severity": "error",
+      "logic": "law questions require law_name, article_ref, effective_date",
+      "message": "법규형 문항은 법령명, 조문, 기준일이 필요하다."
+    },
+    {
+      "id": "VH-010",
+      "group": "language",
+      "name": "문항 언어 규칙",
+      "severity": "warning",
+      "logic": "run question_language_rulebook checks",
+      "message": "문항 표현이 국문법/공공언어 기준을 만족해야 한다."
+    },
+    {
+      "id": "VH-011",
+      "group": "answer_quality",
+      "name": "오답 중복",
+      "severity": "error",
+      "logic": "options should be semantically distinct",
+      "message": "보기끼리 의미가 중복되면 안 된다."
+    },
+    {
+      "id": "VH-012",
+      "group": "answer_quality",
+      "name": "정답 단서 편향",
+      "severity": "warning",
+      "logic": "answer option should not be uniquely longer/more specific without reason",
+      "message": "정답만 길이·구체성·표현 방식에서 튀면 안 된다."
+    },
+    {
+      "id": "VH-013",
+      "group": "copyright",
+      "name": "원문 문장 유사도",
+      "severity": "error",
+      "logic": "generated stem/options/explanation sentence similarity against source chunk must be below 0.8",
+      "message": "생성 문항 문장이 원문 chunk와 80% 이상 유사하면 안 된다."
+    },
+    {
+      "id": "VH-014",
+      "group": "copyright",
+      "name": "보기 원문 재현",
+      "severity": "error",
+      "logic": "reject when 3 or more generated options are identical or near-identical to source chunk text",
+      "message": "보기 5개 중 3개 이상이 원문과 동일하면 안 된다."
+    },
+    {
+      "id": "VH-015",
+      "group": "copyright",
+      "name": "해설 원문 인용",
+      "severity": "error",
+      "logic": "generated explanation sentence similarity against source chunk must be below 0.8",
+      "message": "해설이 원문 표현을 그대로 사용하면 안 된다."
+    },
+    {
+      "id": "VH-016",
+      "group": "copyright",
+      "name": "근거 용도 제한",
+      "severity": "warning",
+      "logic": "RAG source chunks are used only as evidence metadata and concept support",
+      "message": "RAG 근거는 정답 근거 제공 용도로만 사용하고 문항 문장은 새롭게 작성해야 한다."
+    },
+    {
+      "id": "VH-017",
+      "group": "evidence",
+      "name": "해설 존재",
+      "severity": "error",
+      "logic": "explanation or rationale must be present",
+      "message": "해설은 반드시 존재해야 한다."
+    },
+    {
+      "id": "VH-018",
+      "group": "scope",
+      "name": "학습목표 존재",
+      "severity": "error",
+      "logic": "learning_objective_id or learning_objective must be present",
+      "message": "학습목표가 반드시 연결되어야 한다."
+    },
+    {
+      "id": "VH-019",
+      "group": "evidence",
+      "name": "근거 문서 chunk 존재",
+      "severity": "error",
+      "logic": "strict storage validation requires source chunks or evidence chunks",
+      "message": "DB 저장 검증에는 원문 근거 chunk가 필요하다."
+    },
+    {
+      "id": "VH-020",
+      "group": "duplication",
+      "name": "중복 문항",
+      "severity": "error",
+      "logic": "generated question stem must not be highly similar to existing question candidates",
+      "message": "기존 문항과 중복되면 안 된다."
+    },
+    {
+      "id": "VH-021",
+      "group": "hallucination",
+      "name": "근거 없는 수치·법령·공식",
+      "severity": "error",
+      "logic": "numeric values, units, formulas and law refs must be supported by source chunks or law metadata",
+      "message": "근거 없는 수치, 단위, 공식, 법령 조문을 생성하면 안 된다."
+    }
+  ]
+}
