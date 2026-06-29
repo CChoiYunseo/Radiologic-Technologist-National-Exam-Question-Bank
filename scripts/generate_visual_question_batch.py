@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Generate visual-question drafts from approved visual request packages."""
+"""Generate visual-question drafts from approved visual request packages.
+
+This is disabled by default because the current 1·2교시 exam pipeline is
+text-only. Use the explicit research flag only for non-exam experiments.
+"""
 
 from __future__ import annotations
 
@@ -8,6 +12,7 @@ import json
 import os
 import re
 import subprocess
+import sys
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
@@ -15,6 +20,12 @@ from typing import Any
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
+SCRIPTS_DIR = PROJECT_ROOT / "scripts"
+if str(SCRIPTS_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPTS_DIR))
+
+from question_option_randomizer import reorder_item_answer_position
+
 DEFAULT_PACKAGES = (
     PROJECT_ROOT
     / "resources"
@@ -111,6 +122,20 @@ def prompt_for(package: dict[str, Any], max_summary_chars: int) -> str:
         "difficulty": settings.get("difficulty", "중"),
         "evidence_refs": [{"rag_input_id": package.get("source_visual_approval_id", "")}],
         "source_chunks": [{"rag_input_id": package.get("source_visual_approval_id", "")}],
+        "llm_first_check": {
+            "overall_verdict": "pass",
+            "checks": {
+                "scope_alignment": {"verdict": "pass", "reason": "생성 문항 기준으로 점검 이유 작성"},
+                "learning_objective_alignment": {"verdict": "pass", "reason": "생성 문항 기준으로 점검 이유 작성"},
+                "evidence_grounding": {"verdict": "pass", "reason": "생성 문항 기준으로 점검 이유 작성"},
+                "answer_uniqueness": {"verdict": "pass", "reason": "생성 문항 기준으로 점검 이유 작성"},
+                "option_quality": {"verdict": "pass", "reason": "생성 문항 기준으로 점검 이유 작성"},
+                "explanation_quality": {"verdict": "pass", "reason": "생성 문항 기준으로 점검 이유 작성"},
+                "copyright_safety": {"verdict": "pass", "reason": "생성 문항 기준으로 점검 이유 작성"},
+                "text_only_policy": {"verdict": "pass", "reason": "비시험 연구용 시각자료 문항으로 1·2교시 텍스트 시험지에 포함하지 않음"},
+            },
+            "notes": "비시험 연구용 시각자료 문항의 Harness 전 LLM 1차 자기검토 요약",
+        },
         "validation_status": "draft",
         "reviewer_agent_results": {
             "scope": "pending",
@@ -146,6 +171,8 @@ def prompt_for(package: dict[str, Any], max_summary_chars: int) -> str:
         "정답은 반드시 하나만 되도록 한다.",
         "계산형이라도 복잡한 계산값을 새로 요구하지 말고 공식의 의미나 변수 관계를 묻는다.",
         "실제 영상 판독 문제처럼 보이게 만들지 말고, 구조·관계·흐름·의미 해석 문항으로 만든다.",
+        "llm_first_check를 작성하고 모든 check를 pass로 만들 수 있을 때만 최종 JSON을 출력한다.",
+        "이 문항은 비시험 연구용이며 1·2교시 실전 텍스트 시험지에는 포함하지 않는다.",
     ]
     return (
         "너는 방사선사 국가고시 1·2교시 문항 초안 생성기다.\n"
@@ -232,6 +259,7 @@ def validate_visual_item(item: dict[str, Any], package: dict[str, Any]) -> dict[
         "explanation",
         "evidence_refs",
         "source_chunks",
+        "llm_first_check",
         "distractor_strategy",
         "validation_status",
         "reviewer_agent_results",
@@ -249,6 +277,9 @@ def validate_visual_item(item: dict[str, Any], package: dict[str, Any]) -> dict[
         findings.append({"check_id": "VV-003", "severity": "error", "status": "fail", "message": "보기는 5개여야 합니다.", "details": {"option_count": len(options) if isinstance(options, list) else None}})
     if item.get("answer") not in {1, 2, 3, 4, 5}:
         findings.append({"check_id": "VV-004", "severity": "error", "status": "fail", "message": "정답은 1~5 정수여야 합니다.", "details": {"answer": item.get("answer")}})
+    llm_first = item.get("llm_first_check") or {}
+    if not isinstance(llm_first, dict) or llm_first.get("overall_verdict") != "pass":
+        findings.append({"check_id": "VV-011", "severity": "error", "status": "fail", "message": "LLM 1차 검증 결과가 없거나 pass가 아닙니다.", "details": {"overall_verdict": llm_first.get("overall_verdict") if isinstance(llm_first, dict) else None}})
     if item.get("difficulty") not in DIFFICULTIES:
         findings.append({"check_id": "VV-005", "severity": "error", "status": "fail", "message": "난이도 값이 허용 범위를 벗어났습니다.", "details": {"difficulty": item.get("difficulty")}})
     if item.get("question_type") not in QUESTION_TYPES:
@@ -328,7 +359,18 @@ def main() -> None:
     parser.add_argument("--model", default="gpt-5.5")
     parser.add_argument("--timeout", type=int, default=300)
     parser.add_argument("--run-codex", action="store_true")
+    parser.add_argument(
+        "--allow-nonexam-visual-research",
+        action="store_true",
+        help="Run visual-question experiments outside the 1·2교시 text-only exam pipeline.",
+    )
     args = parser.parse_args()
+
+    if not args.allow_nonexam_visual_research:
+        raise SystemExit(
+            "시각자료 기반 문항 생성은 현재 1·2교시 실전 시험지 파이프라인에서 사용하지 않습니다. "
+            "비시험 연구용 실험이 필요한 경우에만 --allow-nonexam-visual-research를 명시하세요."
+        )
 
     packages = [pkg for pkg in read_jsonl(args.packages) if pkg.get("package_status") == "ready_visual"]
     selected = packages[args.offset : args.offset + args.limit]
@@ -374,6 +416,10 @@ def main() -> None:
                 counts["prepare_only"] += 1
             else:
                 draft = run_codex(prompt, raw_path, args.model, args.timeout)
+                draft, answer_position_info = reorder_item_answer_position(
+                    draft,
+                    seed_parts=[package_id, result_row["scope_label"], draft.get("stem", "")],
+                )
                 write_json(draft_path, draft)
                 validation = validate_visual_item(draft, package)
                 write_json(validation_path, validation)
@@ -398,6 +444,7 @@ def main() -> None:
                         "draft_item": str(draft_path),
                         "validation_report": str(validation_path),
                     },
+                    "answer_position_randomization": answer_position_info if args.run_codex else {},
                     "validation_summary": result_row["validation_summary"],
                 },
             )

@@ -186,6 +186,7 @@ export class Component implements OnInit {
             initial_llm_pass: "초안 2차 검증 통과",
             revised_llm_pass: "수정안 2차 검증 통과",
             recovered_llm_pass: "회수 문항 2차 검증 통과",
+            subject_quota_llm_pass: "과목별 추가 생성 2차 검증 통과",
             visual_draft: "시각자료 초안"
         };
         return labels[stage] || stage || "-";
@@ -238,6 +239,26 @@ export class Component implements OnInit {
     public visualSummary() {
         if (!this.selected || !this.selected.candidate_payload) return null;
         return this.selected.candidate_payload.visual_evidence_summary || null;
+    }
+
+    public visualAsset() {
+        if (!this.selected) return null;
+        return this.selected.visual_asset || null;
+    }
+
+    public hasVisualAsset() {
+        const asset = this.visualAsset();
+        return !!(asset && asset.available && asset.svg_markup);
+    }
+
+    public visualAssetPolicyText() {
+        const asset = this.visualAsset();
+        const policy = asset && asset.policy ? asset.policy : {};
+        if (!asset) return "";
+        if (policy.new_educational_diagram) {
+            return "구조화 설명 기반 새 교육용 도식, 원본 이미지 미포함";
+        }
+        return "전문가 검수 전 미승인 시각자료";
     }
 
     public isVisual(item: any = null) {

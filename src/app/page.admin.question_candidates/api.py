@@ -1,5 +1,6 @@
 import json
 import os
+import base64
 import sqlite3
 import uuid
 from datetime import datetime
@@ -13,6 +14,13 @@ STORE_PATH = os.path.join(
     "generated",
     "question_bank_candidates",
     "question_bank_candidates.sqlite",
+)
+VISUAL_SVG_INDEX_PATH = os.path.join(
+    BASE_DIR,
+    "resources",
+    "generated",
+    "visual_assets_svg",
+    "visual_svg_asset_index.jsonl",
 )
 
 ALLOWED_STATUSES = {
@@ -55,6 +63,80 @@ def _draft_item(item):
     payload = item.get("candidate_payload") or {}
     draft = payload.get("draft_item") or {}
     return draft if isinstance(draft, dict) else {}
+
+
+def _read_visual_svg_index():
+    if not os.path.exists(VISUAL_SVG_INDEX_PATH):
+        return {}
+    rows = {}
+    try:
+        with open(VISUAL_SVG_INDEX_PATH, "r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                row = json.loads(line)
+                approval_id = row.get("source_visual_approval_id") or ""
+                if approval_id:
+                    rows[approval_id] = row
+    except Exception:
+        return {}
+    return rows
+
+
+def _candidate_visual_approval_id(item):
+    if item.get("source_stage") == "visual_draft" and item.get("validation_package_id"):
+        return item.get("validation_package_id")
+    refs = item.get("evidence_refs") or []
+    if isinstance(refs, list):
+        for ref in refs:
+            if isinstance(ref, dict) and str(ref.get("rag_input_id") or "").startswith("vqga_"):
+                return ref.get("rag_input_id")
+    payload = item.get("candidate_payload") or {}
+    visual = payload.get("visual_evidence_summary") or {}
+    return visual.get("source_visual_approval_id") or ""
+
+
+def _visual_asset_for_candidate(item):
+    approval_id = _candidate_visual_approval_id(item)
+    if not approval_id:
+        return None
+    index = _read_visual_svg_index()
+    asset = index.get(approval_id)
+    if not asset:
+        return {
+            "source_visual_approval_id": approval_id,
+            "available": False,
+            "message": "연결된 SVG 도식이 없습니다.",
+        }
+    svg_path = asset.get("svg_path") or ""
+    svg_markup = ""
+    if svg_path and os.path.exists(svg_path):
+        try:
+            svg_markup = open(svg_path, "r", encoding="utf-8").read()
+        except Exception:
+            svg_markup = ""
+    return {
+        "available": bool(svg_markup),
+        "source_visual_approval_id": approval_id,
+        "asset_id": asset.get("asset_id") or "",
+        "source_visual_kind": asset.get("source_visual_kind") or "",
+        "template": asset.get("template") or "",
+        "caption": asset.get("caption") or "",
+        "source_file": asset.get("source_file") or "",
+        "page_or_slide": asset.get("page_or_slide") or "",
+        "svg_path": svg_path,
+        "spec_path": asset.get("spec_path") or "",
+        "status": asset.get("status") or "",
+        "policy": asset.get("policy") or {},
+        "svg_markup": svg_markup,
+        "svg_data_url": (
+            "data:image/svg+xml;base64," + base64.b64encode(svg_markup.encode("utf-8")).decode("ascii")
+            if svg_markup
+            else ""
+        ),
+        "message": "" if svg_markup else "SVG 파일을 읽을 수 없습니다.",
+    }
 
 
 def _hydrate_candidate(item):
@@ -255,6 +337,7 @@ def detail():
     item["validation_summary"] = _loads(item.get("validation_summary_json"), {})
     item["candidate_payload"] = _loads(item.get("candidate_payload_json"), {})
     item = _hydrate_candidate(item)
+    item["visual_asset"] = _visual_asset_for_candidate(item)
     item.pop("options_json", None)
     item.pop("evidence_refs_json", None)
     item.pop("source_paths_json", None)
