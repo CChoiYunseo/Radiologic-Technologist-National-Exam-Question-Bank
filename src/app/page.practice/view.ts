@@ -20,8 +20,10 @@ export class Component implements OnInit {
 
     public loading: boolean = false;
     public grading: boolean = false;
-    public summary: any = { total: 0, subjects: [] };
-    public subject: string = "";
+    public summary: any = { total: 0, subjects: [], exams: [] };
+    public period: string = "1교시";
+    public sessionId: string = "";
+    public examMeta: any = {};
     public questions: PracticeQuestion[] = [];
     public currentIndex: number = 0;
     public selectedChoices: any = {};
@@ -31,31 +33,33 @@ export class Component implements OnInit {
     public async ngOnInit() {
         await this.service.init();
         await this.loadSummary();
-        await this.start();
+        await this.startExam("1교시");
     }
 
     public async loadSummary() {
         const { code, data } = await wiz.call("summary");
-        if (code === 200) this.summary = data || { total: 0, subjects: [] };
+        if (code === 200) this.summary = data || { total: 0, subjects: [], exams: [] };
     }
 
-    public async start(subject: string = this.subject) {
+    public async startExam(period: string = this.period) {
         this.loading = true;
-        this.subject = subject || "";
+        this.period = period || "1교시";
+        this.sessionId = "";
+        this.examMeta = {};
         this.currentIndex = 0;
         this.selectedChoices = {};
         this.answers = {};
         this.submitted = false;
-        const { code, data } = await wiz.call("start", { subject: this.subject, count: 10 });
+        const { code, data } = await wiz.call("start", { period: this.period });
         this.loading = false;
         if (code === 200) {
+            this.sessionId = data.session_id || "";
+            this.examMeta = data.exam || {};
             this.questions = data.questions || [];
-            if (this.questions.length === 0) {
-                await this.alert("현재 풀 수 있는 연습 문제가 없습니다.");
-            }
+            if (this.questions.length === 0) await this.alert("현재 풀 수 있는 문항이 없습니다.");
             await this.service.render();
         } else {
-            await this.alert(data.message || "연습 문제를 불러오지 못했습니다.");
+            await this.alert(data.message || "시험지를 불러오지 못했습니다.");
         }
     }
 
@@ -79,6 +83,12 @@ export class Component implements OnInit {
         if (this.submitted) return;
         const question = this.currentQuestion();
         if (!question) return;
+        this.selectedChoices[question.id] = index;
+        await this.service.render();
+    }
+
+    public async selectQuestionChoice(question: PracticeQuestion, index: number) {
+        if (this.submitted || !question) return;
         this.selectedChoices[question.id] = index;
         await this.service.render();
     }
@@ -120,8 +130,7 @@ export class Component implements OnInit {
     }
 
     public async submitExam() {
-        if (this.grading || this.submitted) return;
-        if (this.questions.length === 0) return;
+        if (this.grading || this.submitted || this.questions.length === 0) return;
         if (this.unansweredCount() > 0) {
             await this.alert(`아직 ${this.unansweredCount()}문항의 답안을 선택하지 않았습니다.`);
             return;
@@ -133,6 +142,7 @@ export class Component implements OnInit {
             const selected = Number(this.selectedChoices[question.id] || 0);
             const { code, data } = await wiz.call("answer", {
                 id: question.id,
+                session_id: this.sessionId,
                 selected: selected
             });
             if (code === 200) results[question.id] = data;
@@ -146,6 +156,14 @@ export class Component implements OnInit {
     public scopeText(question: PracticeQuestion) {
         if (!question) return "";
         return [question.period, question.subject, question.field, question.area].filter((x: string) => !!x).join(" / ");
+    }
+
+    public examWarning() {
+        const target = Number(this.examMeta.target_questions || 0);
+        const selected = Number(this.examMeta.selected_questions || this.questions.length || 0);
+        if (target && selected < target) return `${this.period} 기준 ${target}문항 중 현재 ${selected}문항만 준비되었습니다. 부족분은 신규 텍스트 문항 생성 대상으로 분리했습니다.`;
+        if (this.examMeta.complete === false) return "출제기준 대비 부족 영역이 있어 임시 시험지로 표시됩니다.";
+        return "";
     }
 
     public optionClass(option: any) {
