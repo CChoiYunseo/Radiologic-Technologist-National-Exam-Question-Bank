@@ -11,12 +11,19 @@ import argparse
 import hashlib
 import json
 import sqlite3
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
+SCRIPTS_DIR = PROJECT_ROOT / "scripts"
+if str(SCRIPTS_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPTS_DIR))
+
+from question_option_randomizer import reorder_item_answer_position
+
 DEFAULT_ORIGINAL_LLM_RUN_DIR = (
     PROJECT_ROOT
     / "resources/generated/review_candidates/llm_secondary_validation_runs/run_20260624T074838Z_limitall_offset0"
@@ -133,6 +140,10 @@ def build_candidate(
     harness_report: dict[str, Any] | None,
 ) -> tuple[dict[str, Any], list[dict[str, Any]], list[dict[str, Any]]]:
     item = validation_package.get("draft_item") or {}
+    item, answer_position_info = reorder_item_answer_position(
+        item,
+        seed_parts=[source_stage, row.get("package_id"), row.get("validation_package_id"), item.get("stem", "")],
+    )
     evidence_rows = validation_package.get("evidence_for_review") or []
     evidence_refs = evidence_refs_for_store(evidence_rows)
     candidate_id = candidate_id_for(source_stage, row, item)
@@ -154,8 +165,10 @@ def build_candidate(
         "notes": llm_result.get("notes") or "",
         "checks": llm_result.get("checks") or {},
     }
+    llm_first_summary = item.get("llm_first_check") or {}
     harness_summary = (harness_report or {}).get("summary") or validation_package.get("harness_summary") or {}
     validation_summary = {
+        "llm_first": llm_first_summary,
         "harness": harness_summary,
         "llm_secondary": llm_summary,
     }
@@ -197,6 +210,7 @@ def build_candidate(
                 "status": "pending_expert_review",
                 "rag_use": "answer_evidence_only",
             },
+            "answer_position_randomization": answer_position_info,
         },
         "created": now_iso(),
         "updated": now_iso(),
@@ -222,6 +236,18 @@ def build_candidate(
         )
 
     validation_records = [
+        {
+            "id": f"{candidate_id}_val_llm1",
+            "candidate_id": candidate_id,
+            "validation_stage": "llm_first",
+            "validator_type": "llm_self_check",
+            "verdict": str(llm_first_summary.get("overall_verdict") or ""),
+            "passed": 1 if llm_first_summary.get("overall_verdict") == "pass" else 0,
+            "revision_required": 0 if llm_first_summary.get("overall_verdict") == "pass" else 1,
+            "result_path": source_paths.get("validation_package_snapshot") or "",
+            "summary_json": llm_first_summary,
+            "created": now_iso(),
+        },
         {
             "id": f"{candidate_id}_val_harness",
             "candidate_id": candidate_id,
@@ -265,6 +291,10 @@ def visual_candidate_id_for(row: dict[str, Any], item: dict[str, Any]) -> str:
 def build_visual_candidate(row: dict[str, Any]) -> tuple[dict[str, Any], list[dict[str, Any]], list[dict[str, Any]]]:
     run_dir = Path(row["run_dir"])
     item = read_json(run_dir / "draft_item.json")
+    item, answer_position_info = reorder_item_answer_position(
+        item,
+        seed_parts=["visual_draft", row.get("package_id"), row.get("source_visual_approval_id"), item.get("stem", "")],
+    )
     package = read_json(run_dir / "request_package_snapshot.json")
     validation_report = read_json(run_dir / "visual_validation_report.json")
     visual = package.get("visual_evidence") or {}
@@ -360,6 +390,7 @@ def build_visual_candidate(row: dict[str, Any]) -> tuple[dict[str, Any], list[di
                 "source_visual_reuse_allowed": False,
                 "structured_visual_summary_only": True,
             },
+            "answer_position_randomization": answer_position_info,
         },
         "created": now_iso(),
         "updated": now_iso(),
@@ -547,7 +578,8 @@ def main() -> None:
     parser.add_argument("--original-llm-run-dir", type=Path, default=DEFAULT_ORIGINAL_LLM_RUN_DIR)
     parser.add_argument("--revised-llm-run-dir", type=Path, default=DEFAULT_REVISED_LLM_RUN_DIR)
     parser.add_argument("--visual-pass-index", type=Path, default=DEFAULT_VISUAL_PASS_INDEX)
-    parser.add_argument("--skip-visual", action="store_true", help="Do not include visual_draft candidates.")
+    parser.add_argument("--include-visual", action="store_true", help="Research-only: include visual_draft candidates. Not used for 1·2교시 실전 시험지.")
+    parser.add_argument("--skip-visual", action="store_true", help="Deprecated compatibility flag. Visual candidates are skipped by default.")
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
     args = parser.parse_args()
 
@@ -592,7 +624,7 @@ def main() -> None:
         evidence_records.extend(evidence)
         validation_records.extend(validations)
 
-    if not args.skip_visual and args.visual_pass_index.exists():
+    if args.include_visual and not args.skip_visual and args.visual_pass_index.exists():
         for row in read_jsonl(args.visual_pass_index):
             candidate, evidence, validations = build_visual_candidate(row)
             candidates.append(candidate)
@@ -635,7 +667,7 @@ def main() -> None:
         "inputs": {
             "original_llm_pass_index": str(args.original_llm_run_dir / "llm_secondary_pass_index.jsonl"),
             "revised_llm_pass_index": str(args.revised_llm_run_dir / "llm_secondary_pass_index.jsonl"),
-            "visual_pass_index": str(args.visual_pass_index) if not args.skip_visual else "",
+            "visual_pass_index": str(args.visual_pass_index) if args.include_visual and not args.skip_visual else "",
         },
         "outputs": {
             "sqlite_db": str(db_path),
@@ -659,8 +691,8 @@ def main() -> None:
             "final_question_bank_approved": False,
             "source_full_text_stored": False,
             "rag_use": "answer_evidence_only",
-            "visual_generation_type": "visual_draft",
-            "visual_review_status": "pending_expert_review",
+            "visual_generation_type": "excluded_from_1_2_period_exam_pipeline",
+            "visual_review_status": "not_included_unless_research_flag",
         },
     }
     write_json(report_json, report)

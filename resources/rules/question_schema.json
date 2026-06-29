@@ -18,6 +18,7 @@
     "evidence_refs",
     "source_chunks",
     "distractor_strategy",
+    "llm_first_check",
     "validation_status",
     "reviewer_agent_results",
     "final_judge",

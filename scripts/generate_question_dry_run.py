@@ -36,6 +36,16 @@ OUTPUT_SCHEMA = PROJECT_ROOT / "resources" / "rules" / "generated_question_outpu
 
 DISALLOWED_DEFAULT_TYPES = {"법규형", "계산형", "영상해석형"}
 DISALLOWED_EVIDENCE_MARKERS = ("법령", "조문", "표", "그림", "수식", "공식", "영상")
+LLM_FIRST_CHECK_KEYS = [
+    "scope_alignment",
+    "learning_objective_alignment",
+    "evidence_grounding",
+    "answer_uniqueness",
+    "option_quality",
+    "explanation_quality",
+    "copyright_safety",
+    "text_only_policy",
+]
 
 
 def now_iso() -> str:
@@ -178,6 +188,7 @@ def build_prompt(package: dict[str, Any], evidence: list[dict[str, Any]]) -> str
     question_type = choose_question_type(package)
     difficulty = choose_difficulty(package)
     generation_variant = package.get("generation_variant") or {}
+    question_generation_plan = package.get("question_generation_plan") or {}
     source_chunks = [{"rag_input_id": item["rag_input_id"]} for item in evidence]
     payload = {
         "task": "방사선사 국가고시 1·2교시 텍스트 기반 5지선다 문제 dry-run 생성",
@@ -186,6 +197,7 @@ def build_prompt(package: dict[str, Any], evidence: list[dict[str, Any]]) -> str
         "question_type": question_type,
         "difficulty": difficulty,
         "generation_variant": generation_variant,
+        "question_generation_plan": question_generation_plan,
         "rag_index_policy": package.get("rag_index_policy") or {
             "generation_policy": "automatic_generation_requires_generation_safe_index",
         },
@@ -203,6 +215,14 @@ def build_prompt(package: dict[str, Any], evidence: list[dict[str, Any]]) -> str
             "difficulty": difficulty,
             "evidence_refs": source_chunks,
             "source_chunks": source_chunks,
+            "llm_first_check": {
+                "overall_verdict": "pass",
+                "checks": {
+                    key: {"verdict": "pass", "reason": "생성 문항을 기준으로 한 문장으로 점검 이유를 작성"}
+                    for key in LLM_FIRST_CHECK_KEYS
+                },
+                "notes": "Harness 전 LLM 1차 자기검토 요약",
+            },
             "validation_status": "draft",
             "reviewer_agent_results": {
                 "scope": "pending",
@@ -218,8 +238,9 @@ def build_prompt(package: dict[str, Any], evidence: list[dict[str, Any]]) -> str
             "stem": "새 문장으로 작성한 질문 줄기",
             "options": "서로 중복되지 않는 보기 5개 배열",
             "answer": "정답 보기 번호 1~5 중 하나",
-            "explanation": "근거 내용을 바탕으로 새 문장으로 작성한 간결한 해설",
-            "distractor_strategy": "오답 구성 원칙을 한 문장으로 설명"
+            "explanation": "첫 문장에 정답 근거, 이어서 오답 4개의 배제 이유를 보기 핵심 내용 중심으로 선택지 순서에 맞춰 설명한 해설",
+            "distractor_strategy": "오답 4개가 어떤 혼동 개념을 이용했는지 한 문장으로 설명",
+            "llm_first_check": "생성 직후 LLM 1차 자기검토 결과. 모든 check가 pass여야 함",
         },
     }
     rules = [
@@ -228,8 +249,34 @@ def build_prompt(package: dict[str, Any], evidence: list[dict[str, Any]]) -> str
         "문제, 보기, 해설은 모두 새 문장으로 작성한다.",
         "RAG 근거는 정답 판단 근거로만 사용한다.",
         "근거에 없는 지식, 법규 조문, 수치 기준, 공식, 표·그림 내용을 추가하지 않는다.",
+        "1·2교시 실제 시험 기준에 맞춰 텍스트 문항만 생성하고, 그림·표·수식·영상 판독을 전제로 한 문항은 만들지 않는다.",
         "정답은 반드시 하나만 되도록 하고, 보기는 모두 같은 문장 길이와 문체에 가깝게 맞춘다.",
+        "정답 보기만 근거 문장과 지나치게 닮거나 구체적이면 안 된다. 정답도 새 표현으로 압축한다.",
+        "오답 4개는 모두 같은 세부영역 안에서 수험자가 실제로 혼동할 만한 보기여야 하며, 근거 밖 지식이 있어야 배제되는 보기는 만들지 않는다.",
+        "오답은 정답 조건과 하나의 핵심 차이가 나도록 구성하고, 정답을 너무 쉽게 드러내는 절대어 표현을 피한다.",
+        "오답은 정답을 단순히 부정한 문장이나 '제외한다/무시한다/뒤로 둔다'처럼 작위적으로 틀린 문장으로 만들지 않는다.",
+        "보기 5개는 모두 장비, 관리대책, 검사방법, 개념 정의 등 하나의 같은 범주 안에서 작성한다.",
+        "보기 중 하나라도 다른 범주이거나 문법 형태가 다르면, 출력 전에 보기 5개 전체를 같은 범주로 다시 작성한다.",
         "generation_variant가 제공되면 그 초점에 맞춰 같은 범위의 다른 변형 문항을 만든다.",
+        "question_generation_plan이 제공되면 answer_focus, correct_answer_basis, distractor_plan, explanation_plan의 범위 안에서만 문항을 만든다.",
+        "question_generation_plan의 distractor_plan에 없는 새로운 오답 논리를 임의로 추가하지 않는다.",
+        "question_generation_plan의 item_style_plan이 제공되면 stem, options, correct_option, wrong_options의 스타일 지시를 모두 따른다.",
+        "해설 첫 문장은 정답이 되는 핵심 근거를 새 문장으로 설명하되, 근거에서 직접 확인되는 개념만 사용한다.",
+        "해설에는 오답 4개의 배제 이유를 모두 포함하되, 각 이유는 보기 번호가 아니라 보기의 핵심 내용을 언급해 선택지 순서와 대응되게 설명한다.",
+        "각 오답 배제 문장은 보기의 핵심 문구를 주어로 삼아 왜 배제되는지 명시한다.",
+        "오답 배제 표현은 반복하지 말고, 각 오답마다 서로 다른 개념 차이·범위 차이·조건 차이를 설명한다.",
+        "오답 배제를 설명하기 위해 근거 밖 사실, 그림·표·영상 내용, 수치 기준, 법규성 내용이 필요해지면 그 오답을 먼저 다시 작성한다.",
+        "해설에는 '근거 자료', '자료에 따르면', '위 내용에서', '정답은 1번' 같은 메타 표현을 쓰지 않는다.",
+        "해설은 근거 문장을 복사하거나 어순만 바꾼 재서술이 아니라, 개념 관계를 새 문장으로 설명해야 한다.",
+        "해설은 6문장 이내로 간결하게 작성하고, 근거에 없는 추가 배경 설명을 붙이지 않는다.",
+        "해설에서 '1번', '2번', '①' 같은 보기 번호를 직접 참조하지 않는다. 대신 각 오답 배제 이유가 선택지 순서대로 보기 내용과 대응되게 쓴다.",
+        "근거 발췌의 긴 명사구, 문장 배열, 표현 순서를 문제·보기·해설에 그대로 옮기지 않는다.",
+        "전문 용어는 사용할 수 있지만, 근거 문장과 같은 어절 배열이 길게 보이면 새 표현으로 바꾼다.",
+        "출력 전 문제·보기·해설을 근거 발췌와 비교해 원문과 닮은 긴 표현이 있으면 다시 쓴다.",
+        "출력 전 보기 5개를 비교해 정답만 길이, 구체성, 문체가 튀면 다시 작성한다.",
+        "출력 전 해설이 정답 근거 1개와 오답 배제 이유 4개를 모두 담는지 확인한다.",
+        "출력 전에 llm_first_check를 작성한다. 범위, 학습목표, 근거, 정답 유일성, 보기 품질, 해설, 저작권 안전성, 텍스트 전용 정책을 모두 점검한다.",
+        "llm_first_check에서 하나라도 pass가 아니면 문항을 스스로 수정한 뒤 최종 JSON은 pass 상태로만 출력한다.",
         "문항은 실제 저장용이 아니라 dry-run 초안이므로 validation_status는 draft로 유지한다.",
     ]
     return (

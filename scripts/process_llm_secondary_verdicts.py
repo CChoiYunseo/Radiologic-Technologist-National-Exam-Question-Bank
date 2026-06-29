@@ -21,6 +21,13 @@ from typing import Any
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
+SCRIPTS_DIR = PROJECT_ROOT / "scripts"
+import sys
+if str(SCRIPTS_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPTS_DIR))
+
+from question_option_randomizer import reorder_item_answer_position
+
 DEFAULT_LLM_RUN_DIR = (
     PROJECT_ROOT
     / "resources/generated/review_candidates/llm_secondary_validation_runs/run_20260624T074838Z_limitall_offset0"
@@ -221,6 +228,20 @@ def build_prompt(package: dict[str, Any]) -> str:
         "evidence_for_review": package.get("evidence_for_review"),
         "required_output_state": {
             "validation_status": "draft",
+            "llm_first_check": {
+                "overall_verdict": "pass",
+                "checks": {
+                    "scope_alignment": {"verdict": "pass", "reason": "재작성 문항 기준으로 점검 이유 작성"},
+                    "learning_objective_alignment": {"verdict": "pass", "reason": "재작성 문항 기준으로 점검 이유 작성"},
+                    "evidence_grounding": {"verdict": "pass", "reason": "재작성 문항 기준으로 점검 이유 작성"},
+                    "answer_uniqueness": {"verdict": "pass", "reason": "재작성 문항 기준으로 점검 이유 작성"},
+                    "option_quality": {"verdict": "pass", "reason": "재작성 문항 기준으로 점검 이유 작성"},
+                    "explanation_quality": {"verdict": "pass", "reason": "재작성 문항 기준으로 점검 이유 작성"},
+                    "copyright_safety": {"verdict": "pass", "reason": "재작성 문항 기준으로 점검 이유 작성"},
+                    "text_only_policy": {"verdict": "pass", "reason": "재작성 문항 기준으로 점검 이유 작성"},
+                },
+                "notes": "Harness 전 LLM 1차 자기검토 요약",
+            },
             "reviewer_agent_results": {
                 "scope": "pending",
                 "grounding": "pending",
@@ -238,11 +259,14 @@ def build_prompt(package: dict[str, Any]) -> str:
         "전공서 발췌문이나 기존 초안 문장을 그대로 복사하거나 가깝게 재서술하지 않는다.",
         "RAG 근거는 정답 판단 근거로만 사용한다.",
         "근거에 없는 법규 조문, 수치 기준, 공식, 표·그림 내용은 추가하지 않는다.",
+        "1·2교시 실제 시험 기준에 맞춰 텍스트 문항만 재작성하고, 그림·표·도표·영상 제시를 전제로 하지 않는다.",
         "정답은 반드시 하나만 가능해야 한다.",
         "보기 5개는 길이와 문체를 비슷하게 맞추고, 서로 겹치지 않게 한다.",
         "해설에는 정답 근거와 주요 오답 배제 이유를 간결하게 포함한다.",
         "period, subject, field, area, detail, scope_id, question_type, competency_type, difficulty, evidence_refs, source_chunks는 fixed_metadata 값을 유지한다.",
         "learning_objective_id는 feedback에서 현재 ID가 부적절하다고 한 경우 recommended_generation_settings의 더 적절한 후보 ID로 바꿀 수 있다.",
+        "llm_first_check를 작성한다. 범위, 학습목표, 근거, 정답 유일성, 보기 품질, 해설, 저작권 안전성, 텍스트 전용 정책을 모두 점검한다.",
+        "llm_first_check에서 하나라도 pass가 아니면 문항을 스스로 수정한 뒤 최종 JSON은 pass 상태로만 출력한다.",
         "validation_status, reviewer_agent_results, final_judge, status는 required_output_state 값을 사용한다.",
     ]
     return (
@@ -410,6 +434,14 @@ def main() -> None:
                         args.model,
                         args.timeout,
                     )
+                    draft_item, answer_position_info = reorder_item_answer_position(
+                        draft_item,
+                        seed_parts=[
+                            package["revision_package_id"],
+                            package["package_id"],
+                            draft_item.get("stem", ""),
+                        ],
+                    )
                     write_json(draft_path, draft_item)
                     harness_report = validate_item(draft_item, conn)
                     write_json(harness_path, harness_report)
@@ -440,6 +472,7 @@ def main() -> None:
                                 "revised_draft_item": str(draft_path),
                                 "revision_harness_report": str(harness_path),
                             },
+                            "answer_position_randomization": answer_position_info,
                             "harness_summary": summary,
                         },
                     )

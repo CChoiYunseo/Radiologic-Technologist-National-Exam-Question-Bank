@@ -117,6 +117,7 @@ def draft_item_for_review(item: dict[str, Any]) -> dict[str, Any]:
         "answer",
         "explanation",
         "distractor_strategy",
+        "llm_first_check",
     ]
     return {key: item.get(key) for key in keys}
 

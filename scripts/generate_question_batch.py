@@ -40,6 +40,7 @@ from generate_question_dry_run import (
     write_json,
     write_text,
 )
+from question_option_randomizer import reorder_item_answer_position
 
 
 def now_iso() -> str:
@@ -176,6 +177,10 @@ def main() -> None:
                     )
                 else:
                     draft_item = run_codex(prompt, OUTPUT_SCHEMA, raw_path, args.model, args.timeout)
+                    draft_item, answer_position_info = reorder_item_answer_position(
+                        draft_item,
+                        seed_parts=[package_id, result_row["scope_label"], draft_item.get("stem", "")],
+                    )
                     write_json(draft_path, draft_item)
                     validation_report = validate_item(draft_item, conn, generation_safe_ids)
                     write_json(validation_path, validation_report)
@@ -200,6 +205,7 @@ def main() -> None:
                                 "draft_item": str(draft_path),
                                 "validation_report": str(validation_path),
                             },
+                            "answer_position_randomization": answer_position_info,
                             "validation_report": validation_report,
                         },
                     )

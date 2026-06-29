@@ -19,6 +19,7 @@
     "evidence_refs",
     "source_chunks",
     "distractor_strategy",
+    "llm_first_check",
     "validation_status",
     "reviewer_agent_results",
     "final_judge",
@@ -69,6 +70,107 @@
       }
     },
     "distractor_strategy": {"type": "string"},
+    "llm_first_check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "overall_verdict",
+        "checks",
+        "notes"
+      ],
+      "properties": {
+        "overall_verdict": {"type": "string", "enum": ["pass", "revise", "reject"]},
+        "checks": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "scope_alignment",
+            "learning_objective_alignment",
+            "evidence_grounding",
+            "answer_uniqueness",
+            "option_quality",
+            "explanation_quality",
+            "copyright_safety",
+            "text_only_policy"
+          ],
+          "properties": {
+            "scope_alignment": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["verdict", "reason"],
+              "properties": {
+                "verdict": {"type": "string", "enum": ["pass", "revise", "reject"]},
+                "reason": {"type": "string", "minLength": 2}
+              }
+            },
+            "learning_objective_alignment": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["verdict", "reason"],
+              "properties": {
+                "verdict": {"type": "string", "enum": ["pass", "revise", "reject"]},
+                "reason": {"type": "string", "minLength": 2}
+              }
+            },
+            "evidence_grounding": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["verdict", "reason"],
+              "properties": {
+                "verdict": {"type": "string", "enum": ["pass", "revise", "reject"]},
+                "reason": {"type": "string", "minLength": 2}
+              }
+            },
+            "answer_uniqueness": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["verdict", "reason"],
+              "properties": {
+                "verdict": {"type": "string", "enum": ["pass", "revise", "reject"]},
+                "reason": {"type": "string", "minLength": 2}
+              }
+            },
+            "option_quality": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["verdict", "reason"],
+              "properties": {
+                "verdict": {"type": "string", "enum": ["pass", "revise", "reject"]},
+                "reason": {"type": "string", "minLength": 2}
+              }
+            },
+            "explanation_quality": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["verdict", "reason"],
+              "properties": {
+                "verdict": {"type": "string", "enum": ["pass", "revise", "reject"]},
+                "reason": {"type": "string", "minLength": 2}
+              }
+            },
+            "copyright_safety": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["verdict", "reason"],
+              "properties": {
+                "verdict": {"type": "string", "enum": ["pass", "revise", "reject"]},
+                "reason": {"type": "string", "minLength": 2}
+              }
+            },
+            "text_only_policy": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["verdict", "reason"],
+              "properties": {
+                "verdict": {"type": "string", "enum": ["pass", "revise", "reject"]},
+                "reason": {"type": "string", "minLength": 2}
+              }
+            }
+          }
+        },
+        "notes": {"type": "string"}
+      }
+    },
     "validation_status": {"type": "string"},
     "reviewer_agent_results": {
       "type": "object",

@@ -33,6 +33,16 @@ EXAM_SCOPE = RULES_DIR / "exam_scope.json"
 DIFFICULTIES = {"하", "중", "상"}
 ANSWER_LABELS = {"1", "2", "3", "4", "5", 1, 2, 3, 4, 5, "A", "B", "C", "D", "E", "ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ"}
 TEXT_FIELDS_FOR_COPYRIGHT = ["stem", "explanation"]
+LLM_FIRST_CHECK_KEYS = [
+    "scope_alignment",
+    "learning_objective_alignment",
+    "evidence_grounding",
+    "answer_uniqueness",
+    "option_quality",
+    "explanation_quality",
+    "copyright_safety",
+    "text_only_policy",
+]
 HOLD_PATTERNS: list[tuple[str, re.Pattern[str]]] = [
     (
         "hold_legal_or_statutory",
@@ -67,6 +77,18 @@ HOLD_PATTERNS: list[tuple[str, re.Pattern[str]]] = [
         ),
     ),
 ]
+VISUAL_QUESTION_PATTERN = re.compile(
+    r"(그림|도표|이미지|사진|스캔|"
+    r"표\s*\d|표를|표에서|표의|표와|"
+    r"아래\s*(?:의)?\s*(?:자료|그림|도표|표)|"
+    r"다음\s*(?:그림|도표|표|영상)|"
+    r"(?:제시된|보이는)\s*영상|"
+    r"영상\s*(?:자료|제시|판독형|사진|이미지)|"
+    r"영상(?:을|를)?\s*(?:보고|판독하|해석하)|"
+    r"영상(?:에서|에)\s*(?:보이는|나타난|관찰되는))",
+    re.IGNORECASE,
+)
+OPTION_REFERENCE_PATTERN = re.compile(r"(?<!\d)([1-5])\s*번|[①②③④⑤]")
 
 
 def now_iso() -> str:
@@ -420,6 +442,9 @@ def validate_generated_item(
     if item.get("question_type") and question_types and item.get("question_type") not in question_types:
         findings.append(message("VH-007", "warning", "warn", "문항 유형이 등록 유형 목록과 직접 일치하지 않습니다.", {"question_type": item.get("question_type")}))
 
+    if item.get("question_type") == "영상해석형":
+        findings.append(message("VH-021", "error", "fail", "1·2교시 텍스트 시험지에는 시각자료 기반 문항 유형을 사용하지 않습니다."))
+
     if item.get("period") == "3교시" or compact(item.get("subject")) == compact("실기시험"):
         findings.append(message("VH-004", "error", "fail", "현재 단계에서는 3교시 실기시험 문항을 저장하지 않습니다."))
 
@@ -430,6 +455,100 @@ def validate_generated_item(
 
     if not item.get("explanation"):
         findings.append(message("VH-017", "error", "fail", "해설이 없습니다."))
+    elif OPTION_REFERENCE_PATTERN.search(str(item.get("explanation") or "")):
+        findings.append(
+            message(
+                "VH-023",
+                "error",
+                "fail",
+                "정답 보기 위치 랜덤 섞기와 충돌하지 않도록 해설에서 보기 번호를 직접 참조하지 않아야 합니다.",
+            )
+        )
+    else:
+        explanation = str(item.get("explanation") or "")
+        exclusion_markers = re.findall(
+            r"(맞지 않|아니|혼동|배제|설명하지 못|구별|부적절|적절하지 않|어긋|정답 조건과 달리|와 달리|과 달리|와 다르|과 다르)",
+            explanation,
+        )
+        if len(explanation) < 120:
+            findings.append(
+                message(
+                    "VH-024",
+                    "warning",
+                    "warn",
+                    "해설이 짧아 정답 근거와 오답별 배제 이유가 충분하지 않을 수 있습니다.",
+                    {"explanation_length": len(explanation)},
+                )
+            )
+        if len(exclusion_markers) < 3:
+            findings.append(
+                message(
+                    "VH-025",
+                    "warning",
+                    "warn",
+                    "해설에 오답 배제 이유를 드러내는 표현이 부족할 수 있습니다.",
+                    {"exclusion_marker_count": len(exclusion_markers)},
+                )
+            )
+
+    visual_question_text = "\n".join(
+        [
+            str(item.get("stem") or ""),
+            str(item.get("distractor_strategy") or ""),
+            str(item.get("explanation") or ""),
+        ]
+    )
+    if VISUAL_QUESTION_PATTERN.search(visual_question_text):
+        findings.append(
+            message(
+                "VH-022",
+                "error",
+                "fail",
+                "1·2교시 텍스트 문항에는 그림·표·도표·영상 제시를 전제로 한 표현을 사용할 수 없습니다.",
+            )
+        )
+
+    llm_first_check = item.get("llm_first_check") or {}
+    if not isinstance(llm_first_check, dict):
+        findings.append(message("VH-018", "error", "fail", "LLM 1차 검증 필드 형식이 올바르지 않습니다."))
+    else:
+        if llm_first_check.get("overall_verdict") != "pass":
+            findings.append(
+                message(
+                    "VH-018",
+                    "error",
+                    "fail",
+                    "LLM 1차 검증 overall_verdict가 pass가 아닙니다.",
+                    {"overall_verdict": llm_first_check.get("overall_verdict")},
+                )
+            )
+        checks = llm_first_check.get("checks") or {}
+        missing_checks = [key for key in LLM_FIRST_CHECK_KEYS if key not in checks]
+        if missing_checks:
+            findings.append(
+                message(
+                    "VH-019",
+                    "error",
+                    "fail",
+                    "LLM 1차 검증 필수 check가 부족합니다.",
+                    {"missing": missing_checks},
+                )
+            )
+        non_pass_checks = {
+            key: value.get("verdict") if isinstance(value, dict) else None
+            for key, value in checks.items()
+            if key in LLM_FIRST_CHECK_KEYS and (not isinstance(value, dict) or value.get("verdict") != "pass")
+        }
+        if non_pass_checks:
+            findings.append(
+                message(
+                    "VH-020",
+                    "error",
+                    "fail",
+                    "LLM 1차 검증 check 중 pass가 아닌 항목이 있습니다.",
+                    {"checks": non_pass_checks},
+                )
+            )
 
     evidence_package = {
         "requested_scope": {
