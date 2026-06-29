@@ -14,10 +14,11 @@ Implemented service areas:
 - RAG evidence preview from a local subject-reference vector index
 - Generation request creation for selected scope, difficulty, question type, focus, and evidence count
 - LLM-backed question generation through OpenAI-compatible or Gemini-compatible API settings
-- Rule-based validation harness for format, metadata, scope, evidence, duplicate, language, and copyright checks
+- Rule-based and LLM-first validation metadata for scope, evidence, answer uniqueness, option quality, explanation quality, copyright safety, and text-only policy checks
+- Knowledge-object and safe-generation-package planning scripts for curated text-question generation
 - Question bank candidate storage with evidence and validation metadata
-- Expert review dashboard for filtering, inspecting, approving, rejecting, and revising generated candidates
-- Practice page that serves approved candidates, or pending candidates as preview content when no approved candidates exist
+- Expert review dashboard for filtering, inspecting, approving, rejecting, revising, and previewing visual-diagram candidates
+- Practice page that serves assembled first- and second-period exam papers with deterministic option randomization
 
 ## Repository Safety
 
@@ -32,19 +33,19 @@ Local source materials (not committed)
 Extraction and normalization scripts
         |
         v
-Rules, scope data, chunks, reports, and vector indexes
+Rules, scope data, knowledge objects, and vector indexes
         |
         v
-RAG search for evidence by exam scope
+Safe generation packages and RAG evidence by exam scope
         |
         v
-LLM question generation
+LLM question generation and LLM-first checks
         |
         v
 Validation harness and expert review
         |
         v
-Question bank candidate store
+Question bank candidate store and assembled exam papers
         |
         v
 Admin review and practice pages
@@ -96,8 +97,11 @@ Key stages:
 - Extract text, OCR, multimodal, and visual assets: `extract_subject_references.py`, `extract_subject_references_advanced.py`, `extract_subject_ocr_full_incremental.py`, `extract_subject_multimodal_incremental.py`, `extract_subject_phase2_assets.py`
 - Map extracted chunks to exam scope: `map_subject_chunks_to_scope.py`, `build_rag_index_input_dataset.py`, `map_rag_index_input_to_scope.py`
 - Build retrieval indexes: `build_subject_vector_db.py`, `build_rag_text_bm25_index.py`
-- Build request packages and review candidates: `build_question_request_packages.py`, `build_review_candidate_index.py`, `build_question_bank_candidate_store.py`
-- Generate and validate drafts: `generate_question_dry_run.py`, `generate_question_batch.py`, `validate_rule_based_generation_harness.py`
+- Build knowledge objects and safe generation packages: `build_knowledge_objects_v2.py`, `build_semantic_knowledge_objects_v2.py`, `build_safe_generation_packages_v3.py`, `classify_and_correct_semantic_kos_v2.py`
+- Build request packages and review candidates: `build_question_request_packages.py`, `build_pilot_question_request_packages_v2.py`, `build_review_candidate_index.py`, `build_question_bank_candidate_store.py`
+- Generate, validate, and import drafts: `generate_question_dry_run.py`, `generate_question_batch.py`, `process_llm_secondary_verdicts.py`, `import_llm_pass_question_bank_candidates.py`, `validate_rule_based_generation_harness.py`
+- Assemble exam papers and normalize answer positions: `assemble_exam_papers.py`, `question_option_randomizer.py`, `rebalance_question_candidate_answer_positions.py`
+- Build simplified educational SVG diagrams for approved visual packages: `build_visual_svg_assets.py`
 - Search and smoke test retrieval: `search_subject_vector_db.py`, `search_rag_text_bm25_index.py`, `run_rag_search_smoke_tests.py`
 
 These scripts assume the private local material folders exist on the developer machine. They rebuild ignored local artifacts such as extracted chunks, vector indexes, reports, and generated candidate stores.
@@ -112,6 +116,7 @@ Examples:
 - `learning_objectives.json`: learning objective mapping
 - `generation_policy.json`: generation constraints
 - `question_schema.json`: expected question structure
+- `generated_question_output_schema.json`: LLM output contract, including first-pass LLM check metadata
 - `validation_harness_spec.json`: validation harness definition
 - `copyright_policy.json`: source-use and similarity constraints
 - `question_language_rulebook.json`: Korean item-writing language rules
@@ -167,6 +172,7 @@ Current validation coverage includes:
 - Unsupported numbers, units, and formulas not found in source chunks
 - Korean item-writing language warnings
 - Copyright and source similarity checks
+- LLM-first check metadata for scope alignment, evidence grounding, answer uniqueness, option quality, explanation quality, copyright safety, and text-only policy
 
 The harness returns pass/fail status, grouped findings, agent-style reports, final judge output, and storage readiness metadata.
 
@@ -182,9 +188,9 @@ Candidate statuses include:
 - `expert_passed`
 - `expert_approved`
 
-The admin review page reads from the local candidate SQLite store and supports status updates, review notes, filtering, detail views, evidence inspection, and validation result inspection.
+The admin review page reads from the local candidate SQLite store and supports status updates, review notes, filtering, detail views, evidence inspection, validation result inspection, and SVG diagram previews for structured visual candidates.
 
-The practice page uses `expert_passed` candidates when available. If there are no passed candidates, it falls back to `pending_expert_review` candidates as preview content so the UI can be tested before final expert approval.
+The practice page can load assembled first- and second-period exam papers. It shuffles option order deterministically per session and maps submitted display choices back to the original answer index when grading.
 
 ## Local Development Notes
 
@@ -206,15 +212,18 @@ The implementation follows the project plan with these practical MVP boundaries:
 - Target exam area: first- and second-period text-based questions
 - Question format: Korean five-option multiple-choice questions
 - Generation method: RAG evidence payload plus LLM JSON generation
-- Validation method: rule-based harness plus review metadata
+- Validation method: rule-based harness plus LLM-first check and review metadata
 - Review method: expert approval workflow before practice publication
+- Practice method: assembled exam papers with deterministic option randomization
 - Excluded from MVP: third-period image/practical questions and direct publication without expert review
 
 ## Korean Summary
 
 이 저장소는 방사선사 국가고시 문제은행 서비스를 구현하기 위한 코드 저장소입니다. 현재 구현은 1·2교시 텍스트 기반 5지선다형 문항 생성을 MVP 범위로 잡고 있으며, 3교시 영상 기반 실기 문항은 별도 확장 단계로 제외했습니다.
 
-구현된 핵심 기능은 출제범위 관리, 로컬 RAG 근거 검색, LLM 기반 문항 생성 요청, 검증 harness, 전문가 검수 후보 저장소, 관리자 검수 화면, 사용자 문제 풀이 화면입니다. 생성 문항은 바로 공개하지 않고 `pending_expert_review` 상태로 저장한 뒤 전문가가 승인해야 연습 문제로 사용되는 흐름입니다.
+구현된 핵심 기능은 출제범위 관리, 로컬 RAG 근거 검색, LLM 기반 문항 생성 요청, 검증 harness, LLM 1차 검증 메타데이터, 전문가 검수 후보 저장소, 관리자 검수 화면, 사용자 문제 풀이 화면입니다. 생성 문항은 바로 공개하지 않고 `pending_expert_review` 상태로 저장한 뒤 전문가가 승인해야 연습 문제로 사용되는 흐름입니다.
+
+추가로 지식 객체와 안전 생성 패키지 기반의 텍스트 문항 생성 파이프라인, 과목별 부족분 점검, 1·2교시 조립 시험지, 세션별 보기 순서 랜덤화, 구조화된 시각자료 후보의 SVG 도식 미리보기를 구현했습니다.
 
 자료는 개인 소유물이므로 업로드하지 않습니다. `materials/01_question_guidelines/`, `materials/02_exam_scope/`, `materials/03_item_design/`, `materials/04_subject_references/` 폴더는 `.gitignore`로 제외했으며, PDF·교재·OCR 입력물 등은 로컬에서만 사용합니다.
 
